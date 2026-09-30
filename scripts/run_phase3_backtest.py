@@ -44,12 +44,22 @@ def option_path(expiry: date) -> Path:
     return DATA_ROOT / "options" / "NIFTY" / f"{expiry.isoformat()}.parquet"
 
 
-def load_option_file(expiry: date) -> pd.DataFrame:
+def load_strikes(expiry: date) -> list[float]:
     p = option_path(expiry)
     if not p.exists():
         raise FileNotFoundError(p)
-    use = ["timestamp", "open", "close", "strike", "option_type", "trading_day", "expiry"]
-    df = pd.read_parquet(p, columns=use)
+    s = pd.read_parquet(p, columns=["strike"])["strike"]
+    return sorted(pd.to_numeric(s, errors="coerce").dropna().unique().tolist())
+
+def load_option_quotes(expiry: date, entry_date: date, strikes: list[float], option_type: str) -> pd.DataFrame:
+    p = option_path(expiry)
+    filters = [
+        ("trading_day", "in", [entry_date.isoformat(), expiry.isoformat()]),
+        ("strike", "in", strikes),
+        ("option_type", "=", option_type),
+    ]
+    use = ["timestamp", "open", "close", "strike", "option_type", "trading_day"]
+    df = pd.read_parquet(p, columns=use, filters=filters)
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     df["trading_day"] = pd.to_datetime(df["trading_day"]).dt.date
     df["strike"] = pd.to_numeric(df["strike"], errors="coerce")
@@ -191,14 +201,10 @@ def main() -> None:
 
     rows = []
     missing = []
-    cache = {}
     for _, s in signals.iterrows():
         exp = s["expiry"]
         try:
-            if exp not in cache:
-                cache[exp] = load_option_file(exp)
-            opt = cache[exp]
-            all_strikes = sorted(opt["strike"].unique().tolist())
+            all_strikes = load_strikes(exp)
             step = infer_strike_step(all_strikes)
             atm = pick_atm(all_strikes, float(s["entry_spot"]))
             side = "PE" if s["predicted_direction"] == "Bull" else "CE"
@@ -211,6 +217,7 @@ def main() -> None:
             if not all(k in all_strike_set for k in strikes.values()):
                 raise ValueError(f"required strike absent: ATM={atm}, step={step}, strikes={strikes}")
 
+            opt = load_option_quotes(exp, s["entry_date"], list(strikes.values()), side)
             legs = []
             for label, pos in {"OTM4": 1, "OTM5": -1, "OTM6": -1}.items():
                 strike = float(strikes[label])
