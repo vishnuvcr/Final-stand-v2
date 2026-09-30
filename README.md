@@ -25,10 +25,10 @@ See [RESEARCH_PLAN.md](RESEARCH_PLAN.md), [RESEARCH_LOG.md](RESEARCH_LOG.md), an
 ## Status
 - Repository bootstrap: complete
 - Phase 1: complete
-- Phase 2: in progress
-- Phase 3: in progress
-- Phase 4: in progress
-- Phase 5: pending
+- Phase 2: complete
+- Phase 3: complete
+- Phase 4: complete (core statistics; alternative MC-window sensitivity remains pending)
+- Phase 5: complete
 
 ## Current validated assumptions
 - NIFTY weekly expiry: Tuesday; prior-trading-day rollback when Tuesday is a trading holiday.
@@ -46,3 +46,22 @@ See [RESEARCH_PLAN.md](RESEARCH_PLAN.md), [RESEARCH_LOG.md](RESEARCH_LOG.md), an
 
 ## Reproducibility
 The backtest code and manifests will be committed. Large third-party raw datasets will be referenced by immutable file paths/checksums rather than copied wholesale into Git history.
+
+
+## Final result
+The primary backtest contains 150 available weekly observations and 150 executable trades from 2022-06-09 through 2026-05-19. Under the primary settlement + current-cost + 1-tick slippage scenario, cumulative normalized net P&L is ₹198,598.87, with 89.33% winning trades and profit factor 2.13. The Monte Carlo directional hit rate is 50.67% and AUC 0.5186, so the historical strategy result should not be interpreted as evidence of strong directional forecasting skill.
+
+## Final research package
+- [Final manuscript](FINAL_MANUSCRIPT.md)
+- [Research plan](RESEARCH_PLAN.md)
+- [Research log](RESEARCH_LOG.md)
+- [Error log](ERROR_LOG.md)
+- [Data manifest](DATA_MANIFEST.md)
+- [Literature review](LITERATURE_REVIEW.md)
+- [Cost model](COST_MODEL.md)
+- [Monte Carlo signal table](research_artifacts/phase2/signal_table.csv)
+- [Trade ledger](research_artifacts/phase3/trade_ledger.csv)
+- [Equity curve](research_artifacts/phase4/equity_curve.csv)
+- [Annual P&L](research_artifacts/phase4/yearly_pnl.csv)
+- [Cumulative P&L chart](research_artifacts/phase4/cumulative_pnl.svg)
+- [Annual P&L chart](research_artifacts/phase4/annual_pnl.svg)
