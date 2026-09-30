@@ -1,6 +1,8 @@
 name: Phase 2 - Monte Carlo signal
 
 on:
+  push:
+    branches: [phase-2-monte-carlo]
   pull_request:
     branches: [main]
   workflow_dispatch:
