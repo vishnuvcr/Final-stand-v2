@@ -8,6 +8,7 @@
 | 2.1 | Phase 2 | started | 2026-10-01 | Implemented cached Hugging Face data access and 50,000-path GBM Monte Carlo signal generation with 252-session calibration. |
 | 2.2 | Phase 2 | complete | 2026-10-01 | First Actions execution stopped on a syntax error before data download. Fixed report generation; successful run produced 150 signals. |
 | 3.1 | Phase 3 | started | 2026-10-01 | Implemented 3-leg OTM strategy backtest, 10:00 entry quote rule, expiry intrinsic settlement, market-exit diagnostic, Paytm/exchange cost model, 1/2-tick and zero-cost sensitivities. |
+| 3.2 | Phase 3 | optimization | 2026-10-01 | Optimized option data access to filtered Parquet reads; prior whole-file scan is logged as E0005. |
 
 ## Conversation record
 ### 2026-10-01 — User request
