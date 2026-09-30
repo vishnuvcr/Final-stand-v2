@@ -6,7 +6,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from scipy.stats import binomtest, norm, roc_auc_score, ttest_1samp
+from scipy.stats import binomtest, norm, ttest_1samp
 
 from data_access import load_index
 
@@ -37,6 +37,15 @@ def perf(x: pd.Series) -> dict:
         "max_drawdown": max_drawdown(x) if len(x) else None,
     }
 
+
+def roc_auc_binary(y: np.ndarray, score: np.ndarray) -> float:
+    pos = score[y == 1]
+    neg = score[y == 0]
+    if len(pos) == 0 or len(neg) == 0:
+        return float("nan")
+    comparisons = (pos[:, None] > neg[None, :]).mean()
+    ties = (pos[:, None] == neg[None, :]).mean()
+    return float(comparisons + 0.5 * ties)
 
 def bootstrap_mean(x: np.ndarray, seed: int = SEED) -> tuple[float, float, float]:
     rng = np.random.default_rng(seed)
@@ -163,7 +172,7 @@ def main() -> None:
     signals["actual_binary"] = (signals["actual_direction"] == "Bull").astype(int)
     summary["signal_calibration"] = {
         "brier_score": float(np.mean((signals["p_up"] - signals["actual_binary"]) ** 2)),
-        "auc": float(roc_auc_score(signals["actual_binary"], signals["p_up"])),
+        "auc": roc_auc_binary(signals["actual_binary"].to_numpy(int), signals["p_up"].to_numpy(float)),
         "hit_rate": float(signals.loc[signals["actual_direction"] != "Flat", "signal_hit"].mean()),
         "bull_predicted_share": float((signals["predicted_direction"] == "Bull").mean()),
         "bull_realized_share": float((signals["actual_direction"] == "Bull").mean()),
