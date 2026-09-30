@@ -2,7 +2,7 @@
 
 ## Current status
 
-Research initialized. Phase 1 (data and specification) is ready to begin.
+Research initialized. Phase 1 (data and specification) is complete; Phase 2 (Monte Carlo signal) is next.
 
 ## Research objective
 Test the user-specified weekly NIFTY direction strategy:
@@ -24,11 +24,19 @@ See [RESEARCH_PLAN.md](RESEARCH_PLAN.md), [RESEARCH_LOG.md](RESEARCH_LOG.md), an
 
 ## Status
 - Repository bootstrap: complete
-- Phase 1: in progress
-- Phase 2: pending
+- Phase 1: complete
+- Phase 2: in progress
 - Phase 3: pending
 - Phase 4: pending
 - Phase 5: pending
+
+## Current validated assumptions
+- NIFTY weekly expiry: Tuesday; prior-trading-day rollback when Tuesday is a trading holiday.
+- NIFTY option tick: ₹0.05 for index options.
+- NIFTY lot-size regime: 25 historically, then 75 for new contracts introduced from Nov-2024, then 65 under the 2025 revision cycle.
+- Paytm Money: current flat F&O brokerage proxy is ₹20 per executed order for the post-Jan-2025 pricing regime; statutory/exchange charges are additional.
+- NSE equity-option transaction charge: ₹3,553 per crore of traded premium value per side from Mar 1, 2026.
+- STT on sale of options: 0.15% of option premium from Apr 1, 2026; 0.10% before that in the tested period.
 
 ## Important data sources
 - NSE derivatives reports/archive: https://www.nseindia.com/all-reports-derivatives
