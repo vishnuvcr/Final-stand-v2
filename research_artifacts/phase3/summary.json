@@ -1,0 +1,103 @@
+{
+  "signals": 150,
+  "valid_trades": 150,
+  "missing_trades": 0,
+  "coverage": 1.0,
+  "quantity_normalization": 65,
+  "entry_rule": "10:00 IST open if exact bar; otherwise latest <=10:00 within 5 minutes using close",
+  "primary_exit": "expiry intrinsic value using NIFTY expiry close",
+  "market_exit_diagnostic": "last option print by 15:30 if <=30 minutes stale; otherwise intrinsic fallback",
+  "primary": {
+    "trades": 150,
+    "wins": 134,
+    "losses": 16,
+    "win_rate": 0.8933333333333333,
+    "total_pnl": 198598.8741467623,
+    "avg_pnl": 1323.9924943117487,
+    "median_pnl": 1804.5022786660008,
+    "profit_factor": 2.12565621020011,
+    "max_drawdown": -35661.647311234476,
+    "best_trade": 16242.598346151997,
+    "worst_trade": -32812.19043877198
+  },
+  "market_exit": {
+    "trades": 150,
+    "wins": 134,
+    "losses": 16,
+    "win_rate": 0.8933333333333333,
+    "total_pnl": 196768.5902492745,
+    "avg_pnl": 1311.7906016618301,
+    "median_pnl": 1789.8706910687506,
+    "profit_factor": 2.1157132480429346,
+    "max_drawdown": -35729.85508950299,
+    "best_trade": 16229.59249050999,
+    "worst_trade": -32805.64494870399
+  },
+  "two_tick": {
+    "trades": 150,
+    "wins": 134,
+    "losses": 16,
+    "win_rate": 0.8933333333333333,
+    "total_pnl": 197137.55248333732,
+    "avg_pnl": 1314.2503498889155,
+    "median_pnl": 1794.7600475764998,
+    "profit_factor": 2.116387125317003,
+    "max_drawdown": -35700.61623559246,
+    "best_trade": 16232.856115062496,
+    "worst_trade": -32821.93266986146
+  },
+  "zero_cost": {
+    "trades": 150,
+    "wins": 134,
+    "losses": 16,
+    "win_rate": 0.8933333333333333,
+    "total_pnl": 224198.00000000023,
+    "avg_pnl": 1494.6533333333348,
+    "median_pnl": 1966.25,
+    "profit_factor": 2.2961800792920144,
+    "max_drawdown": -34849.749999999985,
+    "best_trade": 16454.75,
+    "worst_trade": -32548.749999999985
+  },
+  "by_prediction": {
+    "count": {
+      "Bear": 17,
+      "Bull": 133
+    },
+    "sum": {
+      "Bear": 45549.0938,
+      "Bull": 153049.7803
+    },
+    "mean": {
+      "Bear": 2679.3585,
+      "Bull": 1150.7502
+    },
+    "median": {
+      "Bear": 3532.1621,
+      "Bull": 1678.3215
+    }
+  },
+  "by_year": {
+    "count": {
+      "2022": 24,
+      "2023": 38,
+      "2024": 38,
+      "2025": 37,
+      "2026": 13
+    },
+    "sum": {
+      "2022": 7703.2761,
+      "2023": 26402.2215,
+      "2024": 66972.4233,
+      "2025": 75029.1677,
+      "2026": 22491.7856
+    },
+    "mean": {
+      "2022": 320.9698,
+      "2023": 694.7953,
+      "2024": 1762.4322,
+      "2025": 2027.8153,
+      "2026": 1730.1374
+    }
+  }
+}
