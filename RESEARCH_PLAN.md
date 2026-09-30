@@ -19,6 +19,9 @@
 - Exit: expiry settlement. For market-price backtest, use the last available option price before market close if exact expiry settlement cannot be reconstructed; report which convention was used.
 - Costs: baseline current Paytm Money ₹20 per executed F&O order; 6 orders per 3-leg round trip when legs are executed separately; NSE equity-option transaction charge ₹3,553/crore premium each side from 1-Mar-2026; STT on option sales 0.15% of premium from 1-Apr-2026; 18% GST on broker/exchange service charges; one-tick ₹0.05 adverse slippage per option execution as the minimum liquidity proxy. Run zero-cost and 2-tick sensitivity controls. Historical STT/lot-size changes are handled by effective-date tables where applicable.
 
+## Phase 2 implementation note
+The primary OTM definition is based on the 10:00 IST entry spot because moneyness is a property of the option position at entry. The Monte Carlo signal uses only information through the prior expiry close.
+
 ## Phase gates
 ### Phase 1 — Data and specification
 Tasks: verify expiry calendars, collect/cache required data manifests, validate timestamps, define strike mapping and cost model, create test fixtures.
