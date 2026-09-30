@@ -128,18 +128,18 @@ def run() -> None:
         "mean_p_up": float(out["p_up"].mean()) if not out.empty else None,
     }
     (OUT / "summary.json").write_text(json.dumps(summary, indent=2))
-    (OUT / "summary.md").write_text(
-        "# Phase 2 — Monte Carlo signal
-
-"
-        f"- Signals generated: {summary['signals']}\n"
-        f"- Calibration: {CAL_WINDOW} daily log returns\n"
-        f"- Simulations/signal: {N_SIMS}\n"
-        f"- Direction rule: P(S_expiry > S_signal) > 0.5 => Bull; otherwise Bear\n"
-        f"- Signal hit rate (excluding flat outcomes): {summary['hit_rate_excluding_flat']}\n"
-        f"- Predicted Bull share: {summary['bull_fraction']}\n"
-        f"- Actual Bull share: {summary['actual_bull_fraction']}\n"
-    )
+    summary_md = "\n".join([
+        "# Phase 2 — Monte Carlo signal",
+        "",
+        f"- Signals generated: {summary['signals']}",
+        f"- Calibration: {CAL_WINDOW} daily log returns",
+        f"- Simulations/signal: {N_SIMS}",
+        "- Direction rule: P(S_expiry > S_signal) > 0.5 => Bull; otherwise Bear",
+        f"- Signal hit rate (excluding flat outcomes): {summary['hit_rate_excluding_flat']}",
+        f"- Predicted Bull share: {summary['bull_fraction']}",
+        f"- Actual Bull share: {summary['actual_bull_fraction']}",
+    ]) + "\n"
+    (OUT / "summary.md").write_text(summary_md)
     print(json.dumps(summary, indent=2))
 
 
