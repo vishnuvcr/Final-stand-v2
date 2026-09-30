@@ -1,0 +1,137 @@
+{
+  "primary_performance": {
+    "n": 150,
+    "wins": 134,
+    "win_rate": 0.8933333333333333,
+    "total_pnl": 198598.8741467623,
+    "mean_pnl": 1323.9924943117487,
+    "median_pnl": 1804.5022786660008,
+    "std_pnl": 5733.228581083165,
+    "profit_factor": 2.12565621020011,
+    "max_drawdown": -35661.647311234476
+  },
+  "bootstrap_mean": {
+    "mean": 1323.2019651013463,
+    "ci95_low": 353.90562778745385,
+    "ci95_high": 2171.0121158842735
+  },
+  "ttest_mean_vs_zero": {
+    "t_stat": 2.8283418221272383,
+    "p_value": 0.005323359089254622
+  },
+  "win_rate_binomial_two_sided": {
+    "wins": 134,
+    "n": 150,
+    "p_value_vs_0_5": 2.1755247260990872e-24
+  },
+  "chronological_split": {
+    "train_period": {
+      "n": 105,
+      "wins": 94,
+      "win_rate": 0.8952380952380953,
+      "total_pnl": 106927.91122797817,
+      "mean_pnl": 1018.3610593140778,
+      "median_pnl": 1727.1907030130003,
+      "std_pnl": 5936.6180507996005,
+      "profit_factor": 1.8041921415713171,
+      "max_drawdown": -35661.647311234476
+    },
+    "test_period": {
+      "n": 45,
+      "wins": 40,
+      "win_rate": 0.8888888888888888,
+      "total_pnl": 91670.96291878415,
+      "mean_pnl": 2037.1325093063144,
+      "median_pnl": 1887.158603547048,
+      "std_pnl": 5221.471753352479,
+      "profit_factor": 3.1090131615078467,
+      "max_drawdown": -27102.691870099326
+    },
+    "split_index": 105
+  },
+  "expiry_regime": {
+    "Tuesday_regime": {
+      "n": 24,
+      "wins": 20,
+      "win_rate": 0.8333333333333334,
+      "total_pnl": 38288.3358141585,
+      "mean_pnl": 1595.3473255899373,
+      "median_pnl": 1623.6698056435007,
+      "std_pnl": 6225.754759498976,
+      "profit_factor": 2.1745945575666523,
+      "max_drawdown": -27102.691870099312
+    },
+    "legacy_Thursday_regime": {
+      "n": 126,
+      "wins": 114,
+      "win_rate": 0.9047619047619048,
+      "total_pnl": 160310.53833260378,
+      "mean_pnl": 1272.3058597825698,
+      "median_pnl": 1848.0930254077507,
+      "std_pnl": 5659.704768481006,
+      "profit_factor": 2.114565197290492,
+      "max_drawdown": -35661.647311234476
+    }
+  },
+  "predicted_direction": {
+    "Bear": {
+      "n": 17,
+      "wins": 16,
+      "win_rate": 0.9411764705882353,
+      "total_pnl": 45549.09384163805,
+      "mean_pnl": 2679.3584612728264,
+      "median_pnl": 3532.162111695001,
+      "std_pnl": 3805.892438004409,
+      "profit_factor": 5.874391797629463,
+      "max_drawdown": -9344.569688425476
+    },
+    "Bull": {
+      "n": 133,
+      "wins": 118,
+      "win_rate": 0.8872180451127819,
+      "total_pnl": 153049.78030512427,
+      "mean_pnl": 1150.750227858077,
+      "median_pnl": 1678.3214592195009,
+      "std_pnl": 5922.887366411668,
+      "profit_factor": 1.9160003345888006,
+      "max_drawdown": -32812.19043877198
+    }
+  },
+  "lag1_autocorrelation": -0.07307390805688675,
+  "total_cost_burden": {
+    "gross_pnl": 222735.5000000003,
+    "slippage_cost": 1462.4999999999704,
+    "transaction_cost": 24136.625853238,
+    "net_pnl": 198598.8741467623
+  },
+  "signal_calibration": {
+    "brier_score": 0.25045557838399995,
+    "auc": 0.5186307719736138,
+    "hit_rate": 0.5066666666666667,
+    "bull_predicted_share": 0.8866666666666667,
+    "bull_realized_share": 0.5266666666666666
+  },
+  "mc_window_sensitivity": [
+    {
+      "window": 63,
+      "signals": 150,
+      "hit_rate": 0.5,
+      "bull_share": 0.68,
+      "mean_p_up": 0.551342102408716
+    },
+    {
+      "window": 252,
+      "signals": 150,
+      "hit_rate": 0.5,
+      "bull_share": 0.88,
+      "mean_p_up": 0.5441425668375843
+    },
+    {
+      "window": 504,
+      "signals": 110,
+      "hit_rate": 0.509090909090909,
+      "bull_share": 1.0,
+      "mean_p_up": 0.5498029105716247
+    }
+  ]
+}
