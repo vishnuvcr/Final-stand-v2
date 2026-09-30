@@ -46,6 +46,9 @@ Exit criterion: robustness report with no hidden parameter tuning on the test se
 Tasks: figures, tables, methods, results, discussion, strengths/limitations, conclusion, future work, appendix, reproducibility notes.
 Exit criterion: complete structured manuscript and final research status.
 
+## Final phase status
+Phase 5 is complete. Phase 4 core statistics are complete; the 63/504-session Monte Carlo calibration-window sensitivity remains explicitly open as a reproducibility extension and is not used in the primary conclusion.
+
 ## Non-negotiable research controls
 - No look-ahead: signal uses only data available at prior expiry-day close; entry uses only data at 10:00 or earlier; exit uses only expiry information.
 - Preserve raw/source manifests and checksums.
