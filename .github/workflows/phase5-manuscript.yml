@@ -1,0 +1,30 @@
+name: Phase 5 - Manuscript validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [phase-5-manuscript]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate research package
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s FINAL_MANUSCRIPT.md
+          test -s RESEARCH_PLAN.md
+          test -s RESEARCH_LOG.md
+          test -s ERROR_LOG.md
+          test -s DATA_MANIFEST.md
+          test -s research_artifacts/phase2/signal_table.csv
+          test -s research_artifacts/phase3/trade_ledger.csv
+          test -s research_artifacts/phase4/equity_curve.csv
+          test -s research_artifacts/phase4/yearly_pnl.csv
+          test -s research_artifacts/phase4/cumulative_pnl.svg
+          test -s research_artifacts/phase4/annual_pnl.svg
+          echo "Research manuscript/package validation passed."
