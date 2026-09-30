@@ -1,0 +1,18 @@
+{
+  "dataset": {
+    "repo": "thetrademarkk/india-index-options-1m",
+    "revision": "0f4800e43e6f96cec0794369d78eb4d3c4211ef5",
+    "option_files": 236,
+    "min_expiry": "2022-01-06",
+    "max_expiry": "2026-08-04",
+    "root": "data_cache/hf_nifty"
+  },
+  "calibration_window": 252,
+  "simulations_per_signal": 50000,
+  "seed": 20261001,
+  "signals": 150,
+  "hit_rate_excluding_flat": 0.5066666666666667,
+  "bull_fraction": 0.8866666666666667,
+  "actual_bull_fraction": 0.5266666666666666,
+  "mean_p_up": 0.5444941333333333
+}
