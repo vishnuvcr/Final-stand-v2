@@ -51,6 +51,18 @@ def ensure_dataset(min_expiry: dt.date = MIN_EXPIRY) -> dict:
     }
 
 
+def ensure_index() -> None:
+    token = os.environ.get("HF_TOKEN")
+    DATA_ROOT.mkdir(parents=True, exist_ok=True)
+    snapshot_download(
+        repo_id=HF_REPO,
+        repo_type="dataset",
+        local_dir=str(DATA_ROOT),
+        allow_patterns=["index/NIFTY.parquet"],
+        token=token,
+        max_workers=2,
+    )
+
 def load_index() -> pd.DataFrame:
     path = DATA_ROOT / "index" / "NIFTY.parquet"
     df = pd.read_parquet(path)
