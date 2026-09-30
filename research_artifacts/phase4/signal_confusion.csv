@@ -1,0 +1,5 @@
+predicted,actual,count
+Bull,Bear,64
+Bear,Bull,10
+Bull,Bull,69
+Bear,Bear,7
