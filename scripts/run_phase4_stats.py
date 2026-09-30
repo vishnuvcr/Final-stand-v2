@@ -77,8 +77,8 @@ def window_sensitivity(signal_dates: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for w in [63, 252, 504]:
         for _, s in signal_dates.iterrows():
-            sd = s["signal_date"]
-            ed = s["expiry"]
+            sd = pd.Timestamp(s["signal_date"]).date()
+            ed = pd.Timestamp(s["expiry"]).date()
             if sd not in pos or ed not in pos:
                 continue
             i = pos[sd]
