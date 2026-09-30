@@ -16,7 +16,7 @@
 - Entry timestamp: 10:00 IST on the trading day corresponding to 4 trading days before expiry.
 - Strike mapping: primary interpretation of OTM4/OTM5/OTM6 = 4th/5th/6th strike-grid positions OTM from the ATM strike determined from NIFTY spot at entry (10:00 IST); sensitivity will use the signal-day spot. A trade is valid only if all three exact strikes are present.
 - Position: 1 long OTM4 and 1 short OTM5 and 1 short OTM6 of the relevant option type.
-- Exit: expiry settlement. For market-price backtest, use the last available option price before market close if exact expiry settlement cannot be reconstructed; report which convention was used.
+- Primary exit: expiry intrinsic value from NIFTY expiry close; diagnostic exit: last option print by 15:30 when no more than 30 minutes stale, otherwise intrinsic fallback. Report both. This treats expiry settlement and an actionable expiry-day close separately.
 - Costs: baseline current Paytm Money ₹20 per executed F&O order; 6 orders per 3-leg round trip when legs are executed separately; NSE equity-option transaction charge ₹3,553/crore premium each side from 1-Mar-2026; STT on option sales 0.15% of premium from 1-Apr-2026; 18% GST on broker/exchange service charges; one-tick ₹0.05 adverse slippage per option execution as the minimum liquidity proxy. Run zero-cost and 2-tick sensitivity controls. Historical STT/lot-size changes are handled by effective-date tables where applicable.
 
 ## Phase 2 implementation note
