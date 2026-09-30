@@ -27,7 +27,7 @@ See [RESEARCH_PLAN.md](RESEARCH_PLAN.md), [RESEARCH_LOG.md](RESEARCH_LOG.md), an
 - Phase 1: complete
 - Phase 2: in progress
 - Phase 3: in progress
-- Phase 4: pending
+- Phase 4: in progress
 - Phase 5: pending
 
 ## Current validated assumptions
