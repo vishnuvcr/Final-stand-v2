@@ -22,6 +22,9 @@
 ## Phase 2 implementation note
 The primary OTM definition is based on the 10:00 IST entry spot because moneyness is a property of the option position at entry. The Monte Carlo signal uses only information through the prior expiry close.
 
+## Phase 4 analysis specification
+Primary statistical outputs: bootstrap 95% CI for mean P&L, two-sided binomial test for win rate, one-sample t-test for mean P&L, lag-1 P&L autocorrelation, 70/30 chronological split, Thursday-vs-Tuesday expiry-regime split, Monte Carlo calibration-window sensitivity (63/252/504 sessions), Brier score and AUC, cost/exit sensitivity, and annual P&L tables/charts. These are robustness diagnostics, not parameter selection.
+
 ## Phase gates
 ### Phase 1 — Data and specification
 Tasks: verify expiry calendars, collect/cache required data manifests, validate timestamps, define strike mapping and cost model, create test fixtures.
