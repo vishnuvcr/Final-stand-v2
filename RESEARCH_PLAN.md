@@ -14,10 +14,10 @@
 - Primary calibration window: rolling 252 trading sessions, with sensitivity to 63 and 504 sessions.
 - Simulations: 50,000 paths per signal, fixed random seed for reproducibility.
 - Entry timestamp: 10:00 IST on the trading day corresponding to 4 trading days before expiry.
-- Strike mapping: default interpretation of OTM4/OTM5/OTM6 = 4th/5th/6th listed strike away from the ATM strike on the relevant side, using the signal-day spot to determine ATM; sensitivity will test mapping based on entry-day spot.
+- Strike mapping: primary interpretation of OTM4/OTM5/OTM6 = 4th/5th/6th strike-grid positions OTM from the ATM strike determined from NIFTY spot at entry (10:00 IST); sensitivity will use the signal-day spot. A trade is valid only if all three exact strikes are present.
 - Position: 1 long OTM4 and 1 short OTM5 and 1 short OTM6 of the relevant option type.
 - Exit: expiry settlement. For market-price backtest, use the last available option price before market close if exact expiry settlement cannot be reconstructed; report which convention was used.
-- Costs: include brokerage/fees/slippage using a documented Paytm Money proxy assumption, and run a zero-cost control.
+- Costs: baseline current Paytm Money ₹20 per executed F&O order; 6 orders per 3-leg round trip when legs are executed separately; NSE equity-option transaction charge ₹3,553/crore premium each side from 1-Mar-2026; STT on option sales 0.15% of premium from 1-Apr-2026; 18% GST on broker/exchange service charges; one-tick ₹0.05 adverse slippage per option execution as the minimum liquidity proxy. Run zero-cost and 2-tick sensitivity controls. Historical STT/lot-size changes are handled by effective-date tables where applicable.
 
 ## Phase gates
 ### Phase 1 — Data and specification
