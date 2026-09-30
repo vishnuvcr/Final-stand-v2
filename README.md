@@ -26,7 +26,7 @@ See [RESEARCH_PLAN.md](RESEARCH_PLAN.md), [RESEARCH_LOG.md](RESEARCH_LOG.md), an
 - Repository bootstrap: complete
 - Phase 1: complete
 - Phase 2: in progress
-- Phase 3: pending
+- Phase 3: in progress
 - Phase 4: pending
 - Phase 5: pending
 
