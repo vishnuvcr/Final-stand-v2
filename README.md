@@ -2,7 +2,9 @@
 
 ## Current status
 
-Research initialized. Phase 1 (data and specification) is ready to begin.
+Research initialized. Phase 1 (data and specification) is in progress.
+
+A main-branch Actions runner now executes phase branches on pull requests and manual runs.
 
 ## Research objective
 Test the user-specified weekly NIFTY direction strategy:
