@@ -1,0 +1,45 @@
+name: Phase 4 - Statistics and robustness
+
+on:
+  push:
+    branches: [phase-4-statistics-robustness]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: phase4-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scipy matplotlib
+      - uses: actions/cache@v4
+        with:
+          path: data_cache/hf_nifty
+          key: hf-nifty-options-v1-${{ runner.os }}
+          restore-keys: |
+            hf-nifty-options-v1-
+      - name: Run statistics and robustness
+        run: python scripts/run_phase4_stats.py
+      - name: Commit phase-4 artifacts
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research_artifacts/phase4
+          git diff --cached --quiet && exit 0
+          git commit -m "phase4: record statistics and robustness results [skip ci]"
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
