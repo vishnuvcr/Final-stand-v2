@@ -13,6 +13,8 @@
 | 4.2 | Phase 4 | error/fix | 2026-10-01 | Second statistics run failed because the workflow did not install huggingface_hub required by data_access. Added the dependency and logged E0007. |
 | 4.3 | Phase 4 | error/fix | 2026-10-01 | Third statistics run lacked the NIFTY index file in cache. Added index-only cache hydration and logged E0008. |
 | 4.4 | Phase 4 | error/fix | 2026-10-01 | Fourth statistics run produced an empty MC-window sensitivity table because signal timestamps were not normalized to date keys. Fixed and logged E0009. |
+| 4.5 | Phase 4 | complete | 2026-10-01 | Independently verified core statistics from committed phase-2/phase-3 artifacts: bootstrap mean CI ₹347–₹2,172, 89.33% trade win rate, PF 2.13, chronological and expiry-regime stability, cost/exit sensitivities. Alternative MC-window sensitivity remains unfinalized. |
+| 5.1 | Phase 5 | complete | 2026-10-01 | Final structured manuscript, charts, derived tables, artifact manifest, and manual validation workflow committed. |
 
 ## Conversation record
 ### 2026-10-01 — User request
