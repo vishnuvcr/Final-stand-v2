@@ -348,3 +348,18 @@ Phase 3 — Strategy backtest: complete.
 Phase 4 — Statistics and robustness: core statistics independently completed and recorded; automated workflow encountered implementation errors documented in ERROR_LOG.md. Alternative Monte Carlo-window sensitivity remains unfinalized.
 
 Phase 5 — Manuscript and research package: complete.
+
+
+## References
+
+1. NSE India. NIFTY derivatives contract specifications and expiry conventions. Current exchange documentation.
+2. NSE India. Equity-derivatives transaction charges, STT, and other levies.
+3. Paytm Money. Current brokerage/pricing schedule for F&O.
+4. Bailey, D. H., Borwein, J., López de Prado, M., & Zhu, Q. J. (2014). Pseudo-Mathematics and Financial Charlatanism: The Effects of Backtest Overfitting on Out-of-Sample Performance.
+5. Bailey, D. H., Borwein, J., López de Prado, M., & Zhu, Q. J. (2016). Backtest Overfitting in Financial Markets.
+6. Bailey, D. H., & López de Prado, M. (2014). The Deflated Sharpe Ratio.
+7. Bailey, D. H., Borwein, J., López de Prado, M., & Zhu, Q. J. (2015). The Probability of Backtest Overfitting.
+8. Hugging Face dataset: thetrademarkk/india-index-options-1m.
+9. GitHub dataset: technovusin/nifty50-historical-data.
+
+Key URLs are also preserved in DATA_MANIFEST.md, COST_MODEL.md, and LITERATURE_REVIEW.md.
