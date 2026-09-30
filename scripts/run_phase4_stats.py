@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import binomtest, norm, ttest_1samp
 
-from data_access import load_index
+from data_access import ensure_index, load_index
 
 OUT = Path("research_artifacts/phase4")
 OUT.mkdir(parents=True, exist_ok=True)
@@ -55,6 +55,7 @@ def bootstrap_mean(x: np.ndarray, seed: int = SEED) -> tuple[float, float, float
 
 
 def daily_from_index() -> pd.DataFrame:
+    ensure_index()
     idx = load_index()
     idx["trade_date"] = pd.to_datetime(idx["trading_day"]).dt.date
     d = (
