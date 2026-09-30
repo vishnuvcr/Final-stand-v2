@@ -12,6 +12,7 @@
 | 4.1 | Phase 4 | error/fix | 2026-10-01 | First statistics run failed on an invalid SciPy AUC import; fixed with a NumPy-only AUC implementation and logged E0006. |
 | 4.2 | Phase 4 | error/fix | 2026-10-01 | Second statistics run failed because the workflow did not install huggingface_hub required by data_access. Added the dependency and logged E0007. |
 | 4.3 | Phase 4 | error/fix | 2026-10-01 | Third statistics run lacked the NIFTY index file in cache. Added index-only cache hydration and logged E0008. |
+| 4.4 | Phase 4 | error/fix | 2026-10-01 | Fourth statistics run produced an empty MC-window sensitivity table because signal timestamps were not normalized to date keys. Fixed and logged E0009. |
 
 ## Conversation record
 ### 2026-10-01 — User request
