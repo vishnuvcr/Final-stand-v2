@@ -11,6 +11,7 @@
 | 3.2 | Phase 3 | complete | 2026-10-01 | Optimized option data access to filtered Parquet reads; backtest completed with 150/150 valid trades and committed ledger. |
 | 4.1 | Phase 4 | error/fix | 2026-10-01 | First statistics run failed on an invalid SciPy AUC import; fixed with a NumPy-only AUC implementation and logged E0006. |
 | 4.2 | Phase 4 | error/fix | 2026-10-01 | Second statistics run failed because the workflow did not install huggingface_hub required by data_access. Added the dependency and logged E0007. |
+| 4.3 | Phase 4 | error/fix | 2026-10-01 | Third statistics run lacked the NIFTY index file in cache. Added index-only cache hydration and logged E0008. |
 
 ## Conversation record
 ### 2026-10-01 — User request
