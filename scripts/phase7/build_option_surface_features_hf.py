@@ -50,6 +50,8 @@ def normalize(df):
     if not all(cols.values()): raise ValueError(f"HF option schema: {list(df.columns)}")
     out=pd.DataFrame({k:df[v] for k,v in cols.items()})
     out["timestamp"]=pd.to_datetime(out["timestamp"],errors="coerce")
+    if getattr(out["timestamp"].dt, "tz", None) is not None:
+        out["timestamp"]=out["timestamp"].dt.tz_convert("Asia/Kolkata").dt.tz_localize(None)
     out["strike"]=pd.to_numeric(out["strike"],errors="coerce")
     out["close"]=pd.to_numeric(out["close"],errors="coerce")
     out["oi"]=pd.to_numeric(out["oi"],errors="coerce")
