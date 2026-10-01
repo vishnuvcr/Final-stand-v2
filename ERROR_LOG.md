@@ -33,3 +33,5 @@ Every material data, code, reproducibility, or methodological error encountered 
 | E0021 | Phase 7 | feature construction | resolved | HF option timestamps are timezone-aware IST values, while the first builder comparison used naive timestamps and raised a pandas invalid-comparison error. | Standardized signal cutoff comparisons to `Asia/Kolkata` timezone-aware timestamps. No feature or performance result was generated before the fix. |
 
 | E0022 | Phase 7 | execution | resolved | NSE India VIX parquet uses `EOD_TIMESTAMP` and `EOD_CLOSE_INDEX_VAL` rather than the generic date/close names assumed by the first feature builder. | Added the actual NSE schema aliases and retained the source columns as the canonical VIX inputs. |
+
+| E0022 | Phase 7 | feature construction | resolved | NSE India VIX data uses `EOD_TIMESTAMP` and `EOD_CLOSE_INDEX_VAL`, which were not included in the initial schema aliases. | Added the actual NSE column names to the parser; no downstream performance analysis ran before the fix. |
