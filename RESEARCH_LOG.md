@@ -41,3 +41,13 @@ Test a NIFTY weekly options strategy where a Monte Carlo forecast is generated a
 - RBI documents its reference-rate archive for USD/INR.
 
 These sources support the feasibility of the locked information set; source availability does not imply that every historical field will be available with a verifiable publication timestamp.
+
+
+| 7.2 | Phase 7 | in progress | 2026-10-01 | Restarted data acquisition using a new information set. Global cross-market series (S&P 500, Nasdaq, Cboe VIX, USDINR, Brent, gold) were acquired for the full development history plus the fresh boundary. A non-evaluative artifact reports 97 fresh daily rows and explicitly records that performance evaluation/model selection were not run. NSE India VIX and signal-date NIFTY option EOD acquisition were then added using the NSE historical-data interfaces/packages. |
+
+## Phase 7 literature/source additions
+
+- NSE documents India VIX as a near-term volatility measure calculated from NIFTY option bid-ask information and provides historical search access.
+- NSE's historical-report system exposes advances/declines, historical India VIX, contract-wise F&O data and corporate-action/report archives.
+- NSE's option-chain interface exposes IV, volume, open interest and option-contract fields.
+- Recent NIFTY research specifically motivates option-implied ATM/skew/term-structure variables: Patra (2025) reports predictive information in ATM and skew-based OTM features; Potharla & Sen (2026) study volatility-smile asymmetry, maturity and volatility-regime interactions; Sajjan (2026) studies India VIX/weekly VRP and regime dependence.
