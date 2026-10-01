@@ -22,15 +22,17 @@ def add_returns(df):
 
 def main():
     frames={}
-    for name in ["sp500","nasdaq","vix","usd_inr","brent","gold"]:
+    for name in ["nifty","sp500","nasdaq","vix","usd_inr","brent","gold"]:
         p=RAW/f"{name}.parquet"
         if p.exists(): frames[name]=add_returns(pd.read_parquet(p))
     if "sp500" not in frames: raise SystemExit("No global source acquired.")
-    base=frames["sp500"][["source_timestamp","ret_1d"]].rename(columns={"ret_1d":"sp500_ret_1d"})
+    base=frames["nifty"][["source_timestamp","ret_1d"]].rename(columns={"ret_1d":"nifty_ret_1d"}) if "nifty" in frames else frames["sp500"][["source_timestamp","ret_1d"]].rename(columns={"ret_1d":"sp500_ret_1d"})
     for name in ["nasdaq","vix","usd_inr","brent","gold"]:
         if name in frames:
             x=frames[name][["source_timestamp","ret_1d"]].rename(columns={"ret_1d":f"{name}_ret_1d"})
             base=base.merge(x,on="source_timestamp",how="outer")
+    if "india_vix" in frames:
+        pass
     base["signal_date"]=pd.to_datetime(base["source_timestamp"]).dt.date
     base["sample_status"]=np.where(base["signal_date"]<=CUTOFF,"development","fresh_untouched")
     base["availability_timestamp"]=base["source_timestamp"].astype(str)+" 23:59:59"
