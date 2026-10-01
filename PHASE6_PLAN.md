@@ -35,7 +35,11 @@ For every model and threshold: trades, participation, win rate, total/mean/media
 6.6 final reproducibility check
 
 ## Research status
-Phase 6 is the active phase. Results must be committed with the code, model specification, errors, and reproducibility metadata.
+Phase 6 is partially executed. Artifact-level heavy-tail MC and agreement-filter tests are complete. The full model ladder and counterfactual option repricing remain blocked by the execution-path limitation documented in ERROR_LOG.md.
 
 ## Execution status
-Workflow trigger commit issued; results will be committed by GitHub Actions after data/model execution.
+- 6.1 partial: conditional heavy-tail MC and artifact-level filter sensitivity executed.
+- 6.2-6.4 blocked: HMM/supervised/hybrid and counterfactual Bull/Bear option repricing not claimed executed.
+- 6.5-6.6 pending until a runnable Actions execution path is available.
+
+The current partial result is sufficient to reject heavy-tail-MC-only tuning as the sole next step, but not sufficient to promote a new directional trading model.
