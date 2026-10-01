@@ -52,5 +52,43 @@ def main():
         manifest["notes"].append(f"global_download_error:{type(exc).__name__}:{exc}")
     save_json(RAW / "source_manifest.json", manifest)
 
+def acquire_nse_exchange_features():
+    try:
+        from nse import NSE
+        with NSE(download_folder=RAW, server=True) as nse:
+            vix = nse.fetch_historical_vix_data(from_date=START, to_date=END)
+        pd.DataFrame(vix).to_parquet(RAW / "india_vix.parquet", index=False)
+    except Exception as exc:
+        manifest_note = {"error": f"india_vix:{type(exc).__name__}:{exc}"}
+        save_json(RAW / "india_vix_error.json", manifest_note)
+
+    # Daily NSE F&O option bhavcopy snapshots are sufficient for the
+    # preregistered signal-time option surface. Only signal dates are pulled,
+    # rather than downloading every trading day.
+    try:
+        import subprocess
+        subprocess.run(["python", "-m", "pip", "install", "--quiet", "nse-archives"], check=True)
+        sig = ROOT / "research_artifacts" / "phase2" / "signal_table.csv"
+        if sig.exists():
+            dates = pd.read_csv(sig, usecols=["signal_date"])["signal_date"].dropna().unique().tolist()
+        else:
+            dates = []
+        fresh = pd.date_range(dt.date(2026, 5, 20), END, freq="W-TUE").strftime("%Y-%m-%d").tolist()
+        dates = sorted(set(dates + fresh))
+        out = RAW / "nifty_option_eod"
+        out.mkdir(parents=True, exist_ok=True)
+        for d in dates:
+            try:
+                cmd = ["nse-data", "get", "derivatives", "equity", "optidx", d]
+                target = out / f"optidx_{d}.csv"
+                if target.exists():
+                    continue
+                with target.open("wb") as fh:
+                    subprocess.run(cmd, stdout=fh, stderr=subprocess.DEVNULL, check=True)
+            except Exception:
+                (out / f"optidx_{d}.missing").touch()
+    except Exception as exc:
+        save_json(RAW / "nse_option_error.json", {"error": f"{type(exc).__name__}:{exc}"})
+
 if __name__ == "__main__":
     main()
