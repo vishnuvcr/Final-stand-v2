@@ -106,7 +106,7 @@ See [PHASE7_PLAN.md](PHASE7_PLAN.md), [RESTART_PROTOCOL.md](RESTART_PROTOCOL.md)
 - India VIX: 350 daily observations from NSE historical data.
 - FII/DII: 62 source dates from the reproducible public archive; no extrapolation beyond available dates.
 - Breadth/corporate actions: no parseable rows from the current public acquisition path; excluded from the primary model and retained as a documented limitation.
-- Fresh boundary: 2026-05-20; current fresh weekly count remains below the preregistered 26-week minimum.
+- Fresh boundary: 2026-05-20; 19 eligible fresh weekly observations are currently available, below the preregistered 26-week minimum. The 26th weekly observation is expected on 2026-11-17 if weekly eligibility remains continuous.
 - No fresh-period performance evaluation or model selection has been run.
 
-See [PHASE7_MODEL_SPEC.md](PHASE7_MODEL_SPEC.md) for the frozen P7.3-v1 specification.
+See [PHASE7_MODEL_SPEC.md](PHASE7_MODEL_SPEC.md) for the frozen P7.3-v1 specification. A 2026-10-01 control-file audit reconciled the status artifact and restored this referenced specification; no research result was changed.
