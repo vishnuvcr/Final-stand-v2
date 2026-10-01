@@ -60,3 +60,7 @@ The final manuscript and complete research package are maintained on the phase-5
 
 ## Next proposed research phase
 **Phase 6 — Direction Engine v2 (not yet executed):** improve the signal using conditional heavy-tailed/regime-aware Monte Carlo, HMM/HSMM regime detection, and shallow supervised models with strict walk-forward validation. The optimization target is the downstream option strategy's loss-tail/drawdown and net P&L, not direction accuracy in isolation.
+
+
+## Phase 6 status
+Phase 6 Direction Engine v2 has been initiated on [phase-6-direction-engine](https://github.com/vishnuvcr/Final-stand-v2/tree/phase-6-direction-engine). Artifact-level testing of a heavy-tail Monte Carlo variant did not improve directional hit rate, while the planned full HMM/ML/hybrid counterfactual option backtest remains blocked by the available execution interface. The branch records the partial results and limitations; no unsupported counterfactual P&L is reported.
