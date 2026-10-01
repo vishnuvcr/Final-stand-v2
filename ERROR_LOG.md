@@ -19,3 +19,5 @@ Every material data, code, reproducibility, or methodological error encountered 
 | E0015 | Repository control | resolved | A stale README and error-log status from the earlier partial Phase-6 execution remained after the later successful run. | Reconciled README, research log and error log with the final Phase-6 execution and froze Phase 7 as a separate restart gate. |
 
 | E0016 | Phase 7 | execution | resolved | The Phase-7 data acquisition and non-evaluative feature build completed, but the Actions artifact commit was rejected as non-fast-forward because the branch had advanced while the run was executing. | Hardened the Phase-7 workflow to fetch/rebase the current branch and retry the push up to three times. The failed run is retained as provenance; no research result was used from the failed commit step. |
+
+| E0017 | Phase 7 | execution | resolved | The first option-surface builder commit contained an unclosed per-file `try` block, causing a Python SyntaxError before any feature calculation. | Added the missing exception handler and retained per-date parser errors in `option_surface_errors.csv`; no model or OOS evaluation ran. |
