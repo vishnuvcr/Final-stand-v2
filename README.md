@@ -68,3 +68,12 @@ Phase 6 Direction Engine v2 has been initiated on [phase-6-direction-engine](htt
 
 ## Phase 6 final research status
 Phase 6 Direction Engine v2 is complete on the [`phase-6-direction-engine`](https://github.com/vishnuvcr/Final-stand-v2/tree/phase-6-direction-engine) branch. The full counterfactual Bull/Bear option-pricing engine and walk-forward GBM, Student-t, HMM, logistic, boosted-tree and hybrid models were executed successfully with the existing cost/slippage model. In the 90-observation out-of-sample window, the original-direction control produced ₹166,402.21 net P&L, 87.78% wins, PF 2.41 and max drawdown -₹27,288.66. No Phase-6 directional model produced a robust drawdown improvement, so no new model is promoted. See the branch's [robustness report](https://github.com/vishnuvcr/Final-stand-v2/blob/phase-6-direction-engine/research_artifacts/phase6/ROBUSTNESS_AND_PROMOTION.md) and [final Phase-6 results](https://github.com/vishnuvcr/Final-stand-v2/blob/phase-6-direction-engine/research_artifacts/phase6/summary.md).
+
+
+## Phase 7 restart gate
+
+The research is **not** continuing with another model-tuning cycle on the same 2022-06-09 through 2026-05-19 sample. A separate [phase-7-new-information-set](https://github.com/vishnuvcr/Final-stand-v2/tree/phase-7-new-information-set) branch freezes a restart protocol requiring a genuinely new information set: option-implied skew/IV term structure, India VIX, FII/FPI and DII flows, breadth, global cross-market signals, USDINR, crude, gold, regime/volatility information, and timestamped news/corporate-action features.
+
+The fresh holdout boundary is 2026-05-20, with a minimum of 26 eligible weekly observations before any promotion decision. See [PHASE7_PLAN.md](https://github.com/vishnuvcr/Final-stand-v2/blob/phase-7-new-information-set/PHASE7_PLAN.md) and [RESTART_PROTOCOL.md](https://github.com/vishnuvcr/Final-stand-v2/blob/phase-7-new-information-set/RESTART_PROTOCOL.md).
+
+Phase 7 protocol check: **passed in GitHub Actions** (run 1, 2026-10-01). No fresh-period performance result has been used for model selection or promotion.
