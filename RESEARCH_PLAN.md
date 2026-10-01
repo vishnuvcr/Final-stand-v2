@@ -46,3 +46,62 @@ Exit criterion: complete structured manuscript and final research status.
 - Log every error and correction.
 - Update README and phase status after each completed step.
 - Separate each phase into its own Git branch.
+
+
+## Proposed Phase 6 — Direction Engine v2 (not yet executed)
+
+### Objective
+Improve the directional filter specifically to reduce large losing weeks and drawdown while preserving the existing option payoff buffer. Directional accuracy alone is not the optimization target; the primary target is improvement in net option-strategy P&L, left-tail loss frequency, maximum drawdown, and conditional win rate under strict out-of-sample testing.
+
+### Phase 6 research ladder
+1. **Monte Carlo calibration upgrades**
+   - Replace fixed-normal GBM with empirical/bootstrap and Student-t innovations.
+   - Test GARCH/EGARCH/GJR-GARCH conditional volatility.
+   - Test regime-conditioned drift and volatility.
+   - Test jump/tail-mixture distributions.
+   - Compare 63/252/504-day calibration windows.
+2. **Regime models**
+   - Two- and three-state HMM/HSMM regimes.
+   - Candidate states: bullish/trending, bearish/trending, neutral/high-volatility.
+   - Use regime probabilities as features/conditioning variables rather than deterministic labels.
+3. **Supervised directional models**
+   - Regularized logistic regression baseline.
+   - Shallow XGBoost/LightGBM gradient boosting.
+   - Limited feature count and depth to control overfitting.
+   - No deep neural network in the first pass.
+4. **Hybrid probability engine**
+   - Combine calibrated ML probability with regime-conditioned Monte Carlo probability.
+   - Produce P(NIFTY expiry > signal spot), P(expiry below lower-tail threshold), median, 5th/25th/75th/95th percentiles.
+5. **Trade-aware decision layer**
+   - Test confidence thresholds and a no-trade/neutral state.
+   - For the Bull structure, explicitly model left-tail probability; for the Bear structure, model right-tail probability.
+   - Test predicting structure-level positive P&L directly as a secondary target.
+6. **Feature families**
+   - NIFTY momentum/trend/realized-volatility features.
+   - India VIX level/change/term or implied-realized features where available.
+   - Options IV/skew/open-interest/put-call information.
+   - FII/DII flows.
+   - Global equity/VIX/USDINR/crude/gold/cross-market variables.
+   - Breadth/sector-relative features and expiry/calendar variables.
+7. **Validation**
+   - Anchored walk-forward / purged time-series validation.
+   - Embargo at least equal to the forecast horizon when labels overlap.
+   - Parameters locked before each out-of-sample block.
+   - Evaluate statistical metrics and the actual 3-leg strategy net of costs.
+8. **Baselines and controls**
+   - Always-Bull and Always-Bear.
+   - Random direction with the observed Bull/Bear class balance.
+   - Existing 252-day GBM Monte Carlo.
+   - Regime-only model.
+   - ML-only model.
+   - Hybrid model.
+9. **Promotion gates**
+   - No model is promoted on hit rate alone.
+   - Require improvement in out-of-sample drawdown/loss-tail metrics and net P&L without unacceptable deterioration in trade frequency or costs.
+   - Require performance across multiple chronological and volatility regimes.
+
+### Phase 6 exit criterion
+A direction engine is promoted only if it improves the existing strategy's out-of-sample risk profile versus the current GBM benchmark and randomized/class-balance controls. Otherwise retain the simpler signal.
+
+### Important methodological principle
+Monte Carlo remains useful as the **distribution engine**, but it should not be expected to create predictive information by itself. Predictive information should come from conditioning variables/modeling; Monte Carlo then converts those forecasts into a terminal distribution and tail-risk estimate.
