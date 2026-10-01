@@ -98,12 +98,17 @@ def acquire_nse_exchange_features():
         out.mkdir(parents=True, exist_ok=True)
         for d in dates:
             try:
-                cmd = ["nse-data", "get", "derivatives", "equity", "optidx", d]
                 target = out / f"optidx_{d}.csv"
                 if target.exists():
                     continue
-                with target.open("wb") as fh:
-                    subprocess.run(cmd, stdout=fh, stderr=subprocess.DEVNULL, check=True)
+                subprocess.run(
+                    ["nse-data","derivatives","--type","optidx","--date",d],
+                    cwd=out, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True
+                )
+                candidates = sorted(out.glob("optidx*.csv"))
+                if not candidates:
+                    raise FileNotFoundError(f"optidx report not created for {d}")
+                candidates[-1].replace(target)
             except Exception:
                 (out / f"optidx_{d}.missing").touch()
     except Exception as exc:
