@@ -1,0 +1,57 @@
+{
+  "status": "partial_execution",
+  "observations": 150,
+  "walk_forward_direction_engine_not_completed": true,
+  "completed": [
+    "artifact-level conditional heavy-tail Monte Carlo proxy using Cauchy innovations",
+    "out-of-sample-from-row-60 agreement filter against the existing baseline",
+    "threshold sensitivity"
+  ],
+  "directional_hit_rate": {
+    "baseline_gbm": 0.5066666667,
+    "cauchy_conditional_mc": 0.5
+  },
+  "baseline_last_90": {
+    "trades": 90,
+    "win_rate": 0.8777777778,
+    "total_pnl": 165960.5039885108,
+    "max_drawdown": -27330.6160477325,
+    "worst_trade": -27330.6160477325
+  },
+  "cauchy_agreement_filter": [
+    {
+      "threshold": 0.52,
+      "trades": 69,
+      "participation": 0.7666666667,
+      "win_rate": 0.8695652174,
+      "total_pnl": 139382.6491250217,
+      "max_drawdown": -27330.6160477325
+    },
+    {
+      "threshold": 0.55,
+      "trades": 39,
+      "participation": 0.4333333333,
+      "win_rate": 0.8717948718,
+      "total_pnl": 67728.78980899221,
+      "max_drawdown": -27330.6160477325
+    },
+    {
+      "threshold": 0.58,
+      "trades": 22,
+      "participation": 0.2444444444,
+      "win_rate": 0.8636363636,
+      "total_pnl": 28614.897517651094,
+      "max_drawdown": -27330.6160477325
+    },
+    {
+      "threshold": 0.6,
+      "trades": 3,
+      "participation": 0.0333333333,
+      "win_rate": 0.3333333333,
+      "total_pnl": -28763.344348289404,
+      "max_drawdown": -31519.988976659402
+    }
+  ],
+  "interpretation": "The tested heavy-tail MC substitution did not improve directional hit rate, and the simple confidence/agree filter did not robustly reduce drawdown. These results do not justify replacing the baseline with a heavy-tail MC-only direction rule.",
+  "blocked": "The repository connector does not expose a workflow-dispatch/run operation and API commits did not expose an executable Actions result. The planned counterfactual Bull/Bear option repricing therefore could not be executed and no opposite-side P&L is invented."
+}
