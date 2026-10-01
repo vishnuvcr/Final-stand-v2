@@ -115,7 +115,7 @@ Robustness:
 
 ## Current status
 **7.1 complete.** The restart protocol is frozen in this branch.
-**7.2–7.6 not executed.** As of 2026-10-01, the fresh boundary 2026-05-20 provides fewer than the preregistered 26 weekly observations available for a final promotion decision. No fresh-period performance result is therefore treated as a promotion result.
+**7.2 in progress.** The non-evaluative data layer has been built and cached; exchange-specific acquisition is being expanded. **7.3–7.6 not executed.** As of 2026-10-01, the fresh boundary 2026-05-20 provides fewer than the preregistered 26 weekly observations available for a final promotion decision. No fresh-period performance result is therefore treated as a promotion result.
 
 ## Non-negotiable stop rule
 Do not reopen Phase 6 for additional model tuning. If Phase 7 later fails, the research stops with the failure documented. A subsequent restart requires a new information set, a new untouched period, and a new preregistration revision.
