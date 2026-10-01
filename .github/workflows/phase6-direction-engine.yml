@@ -3,6 +3,11 @@ name: Phase 6 - Direction engine v2
 on:
   push:
     branches: [phase-6-direction-engine]
+    paths:
+      - '.github/workflows/phase6-direction-engine.yml'
+      - 'scripts/**'
+      - 'research_artifacts/phase2/**'
+      - 'research_artifacts/phase3/**'
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -36,32 +41,13 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python scripts/run_phase6_direction_engine.py
-      - name: Update phase status files
-        # Status is written only after the executable result exists.
-        shell: bash
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          s=json.loads(Path("research_artifacts/phase6/summary.json").read_text())
-          p=Path("RESEARCH_LOG.md")
-          text=p.read_text()
-          text += "\n| 6.1-6.6 | Phase 6 | complete | 2026-10-01 | Executed counterfactual Bull/Bear pricing, Student-t MC, 2-state HMM regime probability, logistic regression, boosted-tree, hybrid ensemble, fixed abstention rule, and expanding walk-forward evaluation. Full results are in research_artifacts/phase6/. |\n"
-          p.write_text(text)
-          r=Path("README.md"); rt=r.read_text()
-          marker="\n## Phase 6 status\n"
-          block=marker+"Phase 6 Direction Engine v2 has been executed with counterfactual Bull/Bear option pricing and expanding walk-forward validation. See [PHASE6_PLAN.md](PHASE6_PLAN.md), [Phase 6 results](research_artifacts/phase6/summary.md), [predictions](research_artifacts/phase6/walk_forward_predictions.csv), and [counterfactual P&L](research_artifacts/phase6/counterfactual_pnl.csv).\n"
-          if "## Phase 6 status" in rt:
-              rt=rt.split("## Phase 6 status")[0]+block
-          else: rt+=block
-          r.write_text(rt)
-          PY
-      - name: Commit Phase 6 artifacts and status
+      - name: Commit Phase 6 artifacts
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research_artifacts/phase6 RESEARCH_LOG.md README.md
+          git add research_artifacts/phase6
           git diff --cached --quiet && exit 0
-          git commit -m "phase6: record direction-engine results [skip ci]"
+          git commit -m "phase6: record direction-engine artifacts [skip ci]"
           git push origin HEAD:${{ github.head_ref || github.ref_name }}
+undefined

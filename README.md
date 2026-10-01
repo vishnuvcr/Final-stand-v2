@@ -71,3 +71,9 @@ The primary backtest contains 150 available weekly observations and 150 executab
 
 ## Phase 6 status
 Phase 6 Direction Engine v2 has been executed with counterfactual Bull/Bear option pricing and expanding walk-forward validation. See [PHASE6_PLAN.md](PHASE6_PLAN.md), [Phase 6 results](research_artifacts/phase6/summary.md), [predictions](research_artifacts/phase6/walk_forward_predictions.csv), and [counterfactual P&L](research_artifacts/phase6/counterfactual_pnl.csv).
+
+
+## Phase 6 final status
+Phase 6 Direction Engine v2 is complete. The full counterfactual Bull/Bear option-pricing engine and walk-forward GBM, Student-t, HMM, logistic, boosted-tree and hybrid models were executed successfully on GitHub Actions. In the 90-observation out-of-sample window, the original-direction control produced ₹166,402.21 net P&L, 87.78% wins, PF 2.41 and max drawdown -₹27,288.66. No Phase-6 directional model produced a robust drawdown improvement, so no new model is promoted.
+
+See [PHASE6_PLAN.md](PHASE6_PLAN.md), [robustness and promotion](research_artifacts/phase6/ROBUSTNESS_AND_PROMOTION.md), [Phase 6 results](research_artifacts/phase6/summary.md), [counterfactual P&L](research_artifacts/phase6/counterfactual_pnl.csv), and [final manuscript](FINAL_MANUSCRIPT.md).
