@@ -11,3 +11,5 @@
 
 ## Rule
 Every material data, code, reproducibility, or methodological error encountered during the research is recorded here with its resolution before the phase is closed.
+
+| E0013 | Phase 6 | execution | resolved | First full Phase-6 Actions run completed data hydration but failed because counterfactual expiry keys were strings while signal expiry keys were Python date objects, producing an empty merge and a pandas `DataFrame.model` error later in the summary stage. | Store counterfactual expiry keys as date objects and fail early when the counterfactual table or merge is empty. |
