@@ -13,8 +13,8 @@ def main():
     if not p.exists():
         raise SystemExit("india_vix.parquet missing")
     df=pd.read_parquet(p)
-    dcol=next((c for c in ["Date","date","DATE","EOD_DATE"] if c in df.columns),None)
-    ccol=next((c for c in ["Close","close","CLOSE","EOD_CLOSE"] if c in df.columns),None)
+    dcol=next((c for c in ["Date","date","DATE","EOD_DATE","EOD_TIMESTAMP"] if c in df.columns),None)
+    ccol=next((c for c in ["Close","close","CLOSE","EOD_CLOSE","EOD_CLOSE_INDEX_VAL"] if c in df.columns),None)
     if not dcol or not ccol:
         raise SystemExit(f"unrecognized India VIX schema: {list(df.columns)}")
     out=pd.DataFrame({"signal_date":pd.to_datetime(df[dcol],errors="coerce").dt.date,
