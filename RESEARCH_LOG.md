@@ -26,3 +26,5 @@ Test a NIFTY weekly options strategy where a Monte Carlo forecast is generated a
 | 6.1-6.6 | Phase 6 | complete | 2026-10-01 | Executed counterfactual Bull/Bear pricing, Student-t MC, 2-state HMM regime probability, logistic regression, boosted-tree, hybrid ensemble, fixed abstention rule, and expanding walk-forward evaluation. Full results are in research_artifacts/phase6/. |
 
 | 6.7 | Phase 6 | complete | 2026-10-01 | Successful GitHub Actions run completed counterfactual Bull/Bear repricing for all 150 expiries and the full GBM/Student-t/HMM/logistic/boosted/hybrid walk-forward ladder. Robustness report shows no model passes the economic promotion gate. |
+
+| 6.1-6.6 | Phase 6 | complete | 2026-10-01 | Executed counterfactual Bull/Bear pricing, Student-t MC, 2-state HMM regime probability, logistic regression, boosted-tree, hybrid ensemble, fixed abstention rule, and expanding walk-forward evaluation. Full results are in research_artifacts/phase6/. |
