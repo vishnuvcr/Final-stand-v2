@@ -55,3 +55,14 @@ Phase 5 is complete. Phase 4 core statistics are complete; the 63/504-session Mo
 - Log every error and correction.
 - Update README and phase status after each completed step.
 - Separate each phase into its own Git branch.
+
+
+## Phase 7 — New-information-set restart
+
+Phase 7 is a separate branch and a hard anti-overfitting gate. The Phase 1–6 development sample is closed at 2026-05-19. A future restart must introduce a new information set and use a fresh untouched period beginning 2026-05-20.
+
+Required new information groups: option-implied skew/IV term structure, India VIX, FII/FPI and DII flows, breadth, global cross-market variables, USDINR, crude, gold, regime/volatility state, and timestamped news/corporate-action events.
+
+A minimum of 26 eligible fresh weekly observations is required before promotion. Promotion gates are preregistered in PHASE7_PLAN.md and are based on costed downstream option P&L and risk, not directional accuracy alone.
+
+See [PHASE7_PLAN.md](PHASE7_PLAN.md) and [RESTART_PROTOCOL.md](RESTART_PROTOCOL.md).

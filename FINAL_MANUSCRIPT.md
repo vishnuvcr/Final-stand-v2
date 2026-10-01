@@ -393,3 +393,20 @@ Threshold sensitivity also failed to establish a robust improvement. A logistic 
 The planned research objective was to reduce losses/drawdowns while preserving the payoff buffer. In this sample, the evidence does not support replacing the original directional engine with GBM tuning, Student-t MC, HMM, logistic regression, boosted trees, or their simple hybrid. The option payoff structure continues to provide the main buffering effect, while the tested direction layer has not demonstrated a sufficiently stable incremental edge.
 
 Phase 6 is therefore closed without promoting a new directional model. Further model proliferation on the same 150-week sample would increase overfitting risk rather than provide a scientifically stronger conclusion. Future research, if restarted with a genuinely new information set and fresh data, should preregister the promotion criteria and use option-implied variables, market-regime/volatility information, global cross-market variables, breadth, flows, and news/corporate-action information, followed by an untouched out-of-sample test.
+
+
+## 14. Phase 7 — New Information-Set Restart Protocol
+
+The project now treats the Phase 1–6 sample as closed development history. The 2022-06-09 through 2026-05-19 observations must not be reopened for another cycle of feature, model, threshold, or hyperparameter tuning.
+
+A future restart is explicitly conditioned on a genuinely new information set. The preregistered information groups are: option-implied ATM IV, skew and IV term structure; India VIX; FII/FPI and DII flows; market breadth; global cross-market variables; USDINR; crude; gold; regime/volatility state; and timestamped news/corporate-action events. Every feature must carry source, availability and cutoff timestamps, and features with unverifiable availability are excluded.
+
+The fresh-period boundary is 2026-05-20. A minimum of 26 eligible weekly observations is required before any final economic promotion decision. Promotion is based on downstream costed option P&L and risk, with fixed gates for mean P&L, bootstrap confidence interval, profit factor, drawdown, worst trade, loss frequency, and cost/slippage robustness. Directional accuracy remains secondary.
+
+As of 2026-10-01, Phase 7.1 is complete and the protocol is frozen. No fresh-period performance has been used to select a model. This is deliberate: the available fresh period is below the preregistered 26-week threshold, so no new strategy is promoted.
+
+### Phase 7 data-source feasibility
+
+NSE provides historical India VIX and historical index data, and its option-chain interface exposes IV, bid/ask, volume and open-interest fields. NSE also publishes FII/FPI and DII activity and corporate-action/filing data. RBI documents a USD/INR reference-rate archive. These sources establish a feasible starting source hierarchy for the new information set, but publication-time availability must be validated for every feature before it is admitted.
+
+The Phase 7 branch contains the locked feature dictionary, restart protocol, and manual GitHub Actions workflow. It is a gatekeeping phase rather than an excuse to continue tuning the existing sample.

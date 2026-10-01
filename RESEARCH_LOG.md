@@ -28,3 +28,16 @@ Test a NIFTY weekly options strategy where a Monte Carlo forecast is generated a
 | 6.7 | Phase 6 | complete | 2026-10-01 | Successful GitHub Actions run completed counterfactual Bull/Bear repricing for all 150 expiries and the full GBM/Student-t/HMM/logistic/boosted/hybrid walk-forward ladder. Robustness report shows no model passes the economic promotion gate. |
 
 | 6.1-6.6 | Phase 6 | complete | 2026-10-01 | Executed counterfactual Bull/Bear pricing, Student-t MC, 2-state HMM regime probability, logistic regression, boosted-tree, hybrid ensemble, fixed abstention rule, and expanding walk-forward evaluation. Full results are in research_artifacts/phase6/. |
+
+
+| 7.1 | Phase 7 | complete | 2026-10-01 | Frozen a new-information-set restart protocol. Closed the Phase 1–6 sample at 2026-05-19; defined a fresh boundary at 2026-05-20, a minimum 26-week fresh OOS requirement, locked feature groups, timestamp lineage, cost/slippage controls, and preregistered promotion gates. No fresh performance selection was performed. |
+
+## Phase 7 source audit
+
+- NSE provides historical India VIX data and describes India VIX as an option-implied near-term volatility measure.
+- NSE option-chain data exposes IV, bid/ask, volume and open interest fields.
+- NSE publishes FII/FPI and DII activity reports.
+- NSE provides historical index data, market-report archives and corporate-action/filing data.
+- RBI documents its reference-rate archive for USD/INR.
+
+These sources support the feasibility of the locked information set; source availability does not imply that every historical field will be available with a verifiable publication timestamp.

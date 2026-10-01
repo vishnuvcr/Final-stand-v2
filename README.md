@@ -2,7 +2,7 @@
 
 ## Current status
 
-Research initialized. Phase 1 (data and specification) is complete; Phase 2 (Monte Carlo signal) is next.
+Phases 1–6 are complete and closed. Phase 7 has frozen a new-information-set restart protocol; no additional tuning is permitted on the Phase 1–6 sample.
 
 ## Research objective
 Test the user-specified weekly NIFTY direction strategy:
@@ -19,6 +19,8 @@ Test the user-specified weekly NIFTY direction strategy:
 3. Strategy backtest + execution costs
 4. Statistical analysis + robustness
 5. Manuscript + appendices
+6. Direction engine extension
+7. New-information-set restart protocol
 
 See [RESEARCH_PLAN.md](RESEARCH_PLAN.md), [RESEARCH_LOG.md](RESEARCH_LOG.md), and [ERROR_LOG.md](ERROR_LOG.md).
 
@@ -29,6 +31,8 @@ See [RESEARCH_PLAN.md](RESEARCH_PLAN.md), [RESEARCH_LOG.md](RESEARCH_LOG.md), an
 - Phase 3: complete
 - Phase 4: complete (core statistics; alternative MC-window sensitivity remains pending)
 - Phase 5: complete
+- Phase 6: complete; no new directional model promoted
+- Phase 7: 7.1 complete; restart protocol frozen, fresh OOS not yet opened
 
 ## Current validated assumptions
 - NIFTY weekly expiry: Tuesday; prior-trading-day rollback when Tuesday is a trading holiday.
@@ -77,3 +81,21 @@ Phase 6 Direction Engine v2 has been executed with counterfactual Bull/Bear opti
 Phase 6 Direction Engine v2 is complete. The full counterfactual Bull/Bear option-pricing engine and walk-forward GBM, Student-t, HMM, logistic, boosted-tree and hybrid models were executed successfully on GitHub Actions. In the 90-observation out-of-sample window, the original-direction control produced ₹166,402.21 net P&L, 87.78% wins, PF 2.41 and max drawdown -₹27,288.66. No Phase-6 directional model produced a robust drawdown improvement, so no new model is promoted.
 
 See [PHASE6_PLAN.md](PHASE6_PLAN.md), [robustness and promotion](research_artifacts/phase6/ROBUSTNESS_AND_PROMOTION.md), [Phase 6 results](research_artifacts/phase6/summary.md), [counterfactual P&L](research_artifacts/phase6/counterfactual_pnl.csv), and [final manuscript](FINAL_MANUSCRIPT.md).
+
+
+## Phase 7 — restart gate
+
+Phase 7 explicitly prevents another model-tuning cycle on the same historical sample. The development sample is closed at **2026-05-19**. Any future restart must use a genuinely new information set—option-implied skew/IV term structure, India VIX, FII/FPI and DII flows, breadth, global cross-market signals, USDINR, crude, gold, regime/volatility information, and timestamped news/corporate-action features—and a fresh untouched period.
+
+A final promotion decision requires at least **26 eligible fresh weekly observations** and the preregistered economic gates. Until then, no fresh-period performance is treated as a promotion result.
+
+See [PHASE7_PLAN.md](PHASE7_PLAN.md), [RESTART_PROTOCOL.md](RESTART_PROTOCOL.md), [Phase 7 feature dictionary](research_artifacts/phase7/FEATURE_DICTIONARY.md), and [Phase 7 workflow](.github/workflows/phase7-new-information-set.yml).
+
+### External source hierarchy checked for Phase 7
+- NSE India VIX historical data: https://www.nseindia.com/reports-indices-historical-vix
+- NSE option chain / IV: https://www.nseindia.com/option-chain
+- NSE FII/FPI and DII reports: https://www.nseindia.com/reports/fii-dii
+- NSE historical index data: https://www.nseindia.com/reports-indices-historical-index-data
+- NSE corporate actions: https://www.nseindia.com/companies-listing/corporate-filings-actions
+- NSE historical market reports / breadth: https://www.nseindia.com/resources/historical-reports-capital-market-daily-monthly-archives
+- RBI USD/INR reference-rate archive: https://www.rbi.org.in/scripts/ReferenceRateArchive.aspx
