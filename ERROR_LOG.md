@@ -41,3 +41,5 @@ Every material data, code, reproducibility, or methodological error encountered 
 | E0023 | Phase 7 | execution | resolved | NSE PR-report acquisition produced no parseable breadth rows, causing an empty dataframe to fail at `sort_values`. | Treat empty breadth acquisition as an explicit missing-data condition; the output remains timestamped and coverage reports zero breadth rows instead of inventing values. |
 
 | E0024 | Phase 7 | feature construction | resolved | The flow/breadth as-of join used pandas datetime keys with different internal resolutions (`us` and `s`). | Normalized all signal and source dates to `datetime64[ns]` before the strictly-prior-session as-of joins. |
+
+| E0024 | Phase 7 | execution | resolved | Pandas `merge_asof` rejected flow and signal date keys because their datetime precisions differed (`datetime64[us]` vs `datetime64[s]`). | Normalize all signal/flow/breadth/corporate-action merge keys to `datetime64[ns]` before chronological alignment. |
