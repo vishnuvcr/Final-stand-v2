@@ -1,0 +1,22 @@
+name: Phase 7 — New information set
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/phase7-new-information-set.yml"
+      - "PHASE7_PLAN.md"
+      - "RESTART_PROTOCOL.md"
+      - "research_artifacts/phase7/**"
+      - "scripts/phase7/**"
+
+jobs:
+  protocol-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run preregistration checks
+        run: python scripts/phase7/protocol_check.py
