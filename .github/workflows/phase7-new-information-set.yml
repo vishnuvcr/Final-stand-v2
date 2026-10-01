@@ -1,22 +1,46 @@
-name: Phase 7 — New information set
-
+name: Phase 7 - New information set
 on:
   workflow_dispatch:
   push:
+    branches: [phase-7-new-information-set]
     paths:
       - ".github/workflows/phase7-new-information-set.yml"
+      - "scripts/phase7/**"
       - "PHASE7_PLAN.md"
       - "RESTART_PROTOCOL.md"
-      - "research_artifacts/phase7/**"
-      - "scripts/phase7/**"
-
+permissions:
+  contents: write
+concurrency:
+  group: phase7-\${{ github.ref }}
+  cancel-in-progress: true
 jobs:
-  protocol-check:
+  build-information-set:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy requests yfinance
+      - uses: actions/cache@v4
         with:
-          python-version: "3.11"
-      - name: Run preregistration checks
-        run: python scripts/phase7/protocol_check.py
+          path: |
+            data_cache/hf_nifty
+            data_cache/phase7
+          key: phase7-data-v1-\${{ runner.os }}-\${{ github.ref_name }}
+          restore-keys: |
+            phase7-data-v1-\${{ runner.os }}-
+            phase7-data-v1-
+      - name: Acquire new information-set data
+        run: python scripts/phase7/acquire_new_information_set.py
+      - name: Build non-evaluative feature inventory
+        run: python scripts/phase7/build_feature_dataset.py
+      - name: Commit data-layer artifacts
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research_artifacts/phase7
+          git diff --cached --quiet && exit 0
+          git commit -m "phase7: record new information-set data layer [skip ci]"
+          git push origin HEAD:\${{ github.ref_name }}
