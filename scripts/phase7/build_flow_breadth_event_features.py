@@ -87,10 +87,14 @@ def main():
             continue
         ca_rows.append({"date": d, "corporate_action_rows": count_corporate_actions(
             RAW/"daily_reports"/f"bc_{d}.csv")})
-    breadth = pd.DataFrame(pr_rows).sort_values("date")
+    breadth = pd.DataFrame(pr_rows)
+    if not breadth.empty:
+        breadth = breadth.sort_values("date")
     if not breadth.empty:
         breadth["breadth_z20"] = (breadth["breadth_net"] - breadth["breadth_net"].rolling(20).mean()) / breadth["breadth_net"].rolling(20).std()
-    ca = pd.DataFrame(ca_rows).drop_duplicates("date")
+    ca = pd.DataFrame(ca_rows)
+    if not ca.empty:
+        ca = ca.drop_duplicates("date")
     # Signal-time safe alignment: use the last completed session strictly before the signal date.
     signal_dates = set()
     sig = ROOT / "research_artifacts" / "phase2" / "signal_table.csv"
@@ -121,6 +125,7 @@ def main():
         "signal_rows": int(len(signals)),
         "flow_rows": int(flow["date"].nunique()) if not flow.empty else 0,
         "breadth_rows": int(len(breadth)),
+        "breadth_source_status": "available" if not breadth.empty else "unavailable_no_daily_pr_rows",
         "corporate_action_rows_available": int(ca["corporate_action_rows"].notna().sum()) if not ca.empty else 0,
         "fresh_rows": int((signals["sample_status"]=="fresh_untouched").sum()),
         "performance_evaluation_run": False,
