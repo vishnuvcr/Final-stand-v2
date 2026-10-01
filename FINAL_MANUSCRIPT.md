@@ -376,3 +376,20 @@ The planned HMM, supervised-model, hybrid ensemble, and counterfactual Bull/Bear
 ### Revised inference
 
 The current evidence strengthens the original conclusion: the option payoff structure is doing most of the observed buffering, while the tested Monte Carlo direction layer has not demonstrated a stable directional edge. Future direction-engine work should add conditional information rather than merely increasing simulation count or changing the innovation distribution. The decisive test remains a strict walk-forward, costed, counterfactual backtest that prices both Bull and Bear structures for every decision and evaluates drawdown and tail loss directly.
+
+
+## 13. Final Phase 6 Direction-Engine Results
+
+Phase 6 completed the planned direction-engine extension using true counterfactual option pricing. For every eligible expiry, both the Bull and Bear three-leg structures were priced using the existing brokerage, statutory-charge, and one-tick slippage model. The first 60 weekly observations were used as model warm-up and the subsequent 90 observations formed a chronological walk-forward evaluation.
+
+At the fixed 0.55/0.45 abstention rule, the GBM baseline produced 41 trades, 87.80% wins, ₹72,335.38 net P&L and -₹27,288.66 maximum drawdown. Student-t produced the same economic result. HMM produced 86 trades, 84.88% wins, ₹92,169.66 P&L and -₹44,841.96 drawdown. Logistic produced 70 trades, 84.29% wins, ₹58,998.92 P&L and -₹40,428.48 drawdown. The boosted model produced 79 trades, 86.08% wins, ₹53,995.44 P&L and -₹50,466.85 drawdown. The hybrid produced 52 trades, 86.54% wins, ₹48,769.52 P&L and -₹42,000.23 drawdown.
+
+As the economic control, applying the original Phase-2 direction to the 90 out-of-sample observations while repricing the selected structure produced ₹166,402.21 net P&L, 87.78% wins, profit factor 2.41, maximum drawdown -₹27,288.66 and worst trade -₹27,288.66. Thus none of the new directional models improved the downstream objective. The boosted model's 53.33% raw directional hit rate was higher than the GBM's 47.78% in this walk-forward sample, but this did not translate into superior option-strategy economics.
+
+Threshold sensitivity also failed to establish a robust improvement. A logistic threshold of 0.65 reduced maximum drawdown slightly to -₹26,966.48 but retained only 31 trades and generated ₹53,508.74 total P&L; this threshold was examined after observing the historical sample and therefore is not a valid promotion choice without fresh out-of-sample confirmation. Other models and thresholds either left the key drawdown intact or increased it.
+
+### Final Phase 6 inference
+
+The planned research objective was to reduce losses/drawdowns while preserving the payoff buffer. In this sample, the evidence does not support replacing the original directional engine with GBM tuning, Student-t MC, HMM, logistic regression, boosted trees, or their simple hybrid. The option payoff structure continues to provide the main buffering effect, while the tested direction layer has not demonstrated a sufficiently stable incremental edge.
+
+Phase 6 is therefore closed without promoting a new directional model. Further model proliferation on the same 150-week sample would increase overfitting risk rather than provide a scientifically stronger conclusion. Future research, if restarted with a genuinely new information set and fresh data, should preregister the promotion criteria and use option-implied variables, market-regime/volatility information, global cross-market variables, breadth, flows, and news/corporate-action information, followed by an untouched out-of-sample test.
