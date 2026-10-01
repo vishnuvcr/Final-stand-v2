@@ -32,7 +32,7 @@ See [RESEARCH_PLAN.md](RESEARCH_PLAN.md), [RESEARCH_LOG.md](RESEARCH_LOG.md), an
 - Phase 4: complete (core statistics; alternative MC-window sensitivity remains pending)
 - Phase 5: complete
 - Phase 6: complete; no new directional model promoted
-- Phase 7: 7.1 complete; restart protocol frozen, fresh OOS not yet opened
+- Phase 7: 7.1 complete; 7.2 complete with documented source-coverage limitations; 7.3 frozen; fresh OOS not yet opened
 
 ## Current validated assumptions
 - NIFTY weekly expiry: Tuesday; prior-trading-day rollback when Tuesday is a trading holiday.
@@ -99,3 +99,14 @@ See [PHASE7_PLAN.md](PHASE7_PLAN.md), [RESTART_PROTOCOL.md](RESTART_PROTOCOL.md)
 - NSE corporate actions: https://www.nseindia.com/companies-listing/corporate-filings-actions
 - NSE historical market reports / breadth: https://www.nseindia.com/resources/historical-reports-capital-market-daily-monthly-archives
 - RBI USD/INR reference-rate archive: https://www.rbi.org.in/scripts/ReferenceRateArchive.aspx
+
+
+## Phase 7 data-layer audit
+- Option surface: 155 signal-date rows from the locked Hugging Face NIFTY option archive; missing 2W/1M observations are recorded rather than imputed.
+- India VIX: 350 daily observations from NSE historical data.
+- FII/DII: 62 source dates from the reproducible public archive; no extrapolation beyond available dates.
+- Breadth/corporate actions: no parseable rows from the current public acquisition path; excluded from the primary model and retained as a documented limitation.
+- Fresh boundary: 2026-05-20; current fresh weekly count remains below the preregistered 26-week minimum.
+- No fresh-period performance evaluation or model selection has been run.
+
+See [PHASE7_MODEL_SPEC.md](PHASE7_MODEL_SPEC.md) for the frozen P7.3-v1 specification.
