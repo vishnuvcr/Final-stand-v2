@@ -23,3 +23,5 @@ Every material data, code, reproducibility, or methodological error encountered 
 | E0017 | Phase 7 | execution | resolved | The first option-surface builder commit contained an unclosed per-file `try` block, causing a Python SyntaxError before any feature calculation. | Added the missing exception handler and retained per-date parser errors in `option_surface_errors.csv`; no model or OOS evaluation ran. |
 
 | E0018 | Phase 7 | data acquisition | resolved | The initial option acquisition used an unsupported `nse-data get derivatives equity optidx` path, leaving only missing markers and producing zero option-surface rows. | Switched to the documented `nse-data derivatives --type optidx --date` interface and require an actual CSV before marking a date acquired. |
+
+| E0019 | Phase 7 | data acquisition | resolved | The second `nse-data` option acquisition path still yielded no usable `optidx` files, so the feature builder correctly stopped with zero rows. | Replaced the CLI acquisition with the `nse` package's session-aware `download_document` against the official NSE archive URL, with a legacy-host fallback and explicit target-file validation. |
