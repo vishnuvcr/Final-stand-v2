@@ -56,3 +56,7 @@ Primary test result:
 - Alternative 63/504-session Monte Carlo-window sensitivity remains explicitly open and is not used in the conclusion.
 
 The final manuscript and complete research package are maintained on the phase-5 branch until PR #3 conflicts with the current main-branch history are reconciled.
+
+
+## Next proposed research phase
+**Phase 6 — Direction Engine v2 (not yet executed):** improve the signal using conditional heavy-tailed/regime-aware Monte Carlo, HMM/HSMM regime detection, and shallow supervised models with strict walk-forward validation. The optimization target is the downstream option strategy's loss-tail/drawdown and net P&L, not direction accuracy in isolation.
