@@ -1,8 +1,10 @@
 {
-  "status": "data_layer_in_progress",
+  "status": "complete_with_source_coverage_limitations",
   "development_end": "2026-05-19",
   "fresh_boundary": "2026-05-20",
   "fresh_rows_present": 97,
+  "fresh_eligible_weekly_observations": 19,
+  "minimum_fresh_observations_for_promotion": 26,
   "performance_evaluation_run": false,
   "model_selection_run": false
 }
