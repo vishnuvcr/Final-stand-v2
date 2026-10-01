@@ -67,5 +67,6 @@ The primary backtest contains 150 available weekly observations and 150 executab
 - [Annual P&L chart](research_artifacts/phase4/annual_pnl.svg)
 
 
-## Phase 6 status — partial / execution blocked
-Phase 6 Direction Engine v2 has been implemented and partially evaluated from committed artifacts. A heavy-tail conditional-MC proxy did not improve directional hit rate (50.00% versus 50.67% for the existing GBM). An agreement/confidence filter did not robustly reduce the observed drawdown. The full HMM + supervised ML + hybrid + counterfactual Bull/Bear option-pricing ladder is **not claimed complete** because the available GitHub connector did not expose a workflow dispatch/run operation and did not return an executable Actions result. See [PHASE6_PLAN.md](PHASE6_PLAN.md), [Phase 6 partial results](research_artifacts/phase6/summary.md), [Phase 6 JSON results](research_artifacts/phase6/partial_results.json), and [ERROR_LOG.md](ERROR_LOG.md).
+
+## Phase 6 status
+Phase 6 Direction Engine v2 has been executed with counterfactual Bull/Bear option pricing and expanding walk-forward validation. See [PHASE6_PLAN.md](PHASE6_PLAN.md), [Phase 6 results](research_artifacts/phase6/summary.md), [predictions](research_artifacts/phase6/walk_forward_predictions.csv), and [counterfactual P&L](research_artifacts/phase6/counterfactual_pnl.csv).

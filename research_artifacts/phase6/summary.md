@@ -1,21 +1,147 @@
-# Phase 6 — Partial execution report
+# Phase 6 — Direction Engine Results
 
-Phase 6 was initiated and the committed Phase-2/3 artifacts were re-used without changing the primary historical specification. A heavy-tail conditional Monte Carlo proxy (Cauchy innovation distribution) was evaluated and an agreement/confidence filter was applied to the existing strategy P&L from the 60th observation onward.
+## Walk-forward design
+- Expanding training window; first 60 weekly observations reserved for model warm-up.
+- Fixed confidence rule: Bull >= 0.55, Bear <= 0.45, otherwise NoTrade.
+- Both Bull and Bear option structures are priced for every eligible expiry, allowing true counterfactual downstream P&L.
 
-## Findings
-- Baseline GBM directional hit rate: 50.67% over 150 observations.
-- Cauchy conditional-MC directional hit rate: 50.00% over 150 observations.
-- Baseline last-90 trade P&L: ₹165,960.50; win rate 87.78%; max drawdown -₹27,330.62.
-- Cauchy agreement filter at 0.52: 69 trades, 76.67% participation, 86.96% win rate, ₹139,382.65 P&L, max drawdown -₹27,330.62.
-- At 0.55: 39 trades, 43.33% participation, 87.18% win rate, ₹67,728.79 P&L, max drawdown -₹27,330.62.
-- At 0.58: 22 trades, 24.44% participation, 86.36% win rate, ₹28,614.90 P&L, max drawdown -₹27,330.62.
-- At 0.60: only 3 trades and negative P&L of ₹28,763.34; max drawdown -₹31,519.99.
-
-## Interpretation
-Heavy-tail Monte Carlo alone did not improve directional classification. The simple confidence filter also did not reduce the key drawdown in this sample. This is evidence against spending more effort merely changing the innovation distribution while keeping the same information set.
-
-## Execution limitation
-The Phase-6 GitHub Actions workflow and a temporary main-branch runner were committed, but the available GitHub connector does not expose workflow dispatch/run controls and did not return an executable Actions result. Therefore the full planned counterfactual Bull/Bear option repricing, HMM/ML walk-forward ladder, and strategy-level evaluation of direction flips were not claimed as completed. The existing ledger contains realized P&L only for the original predicted side, so opposite-side P&L was not fabricated.
-
-## Next research decision
-The evidence supports moving to richer conditioning variables—market regime, volatility state, option-implied information, breadth, global cross-market variables, and a supervised model—only after a runnable counterfactual backtest path is available. The primary promotion gate remains downstream costed P&L/drawdown, not directional accuracy alone.
+## gbm
+- trades: 41
+- wins: 36
+- win_rate: 0.8780487804878049
+- total_pnl: 72335.38183192663
+- mean_pnl: 1764.277605656747
+- median_pnl: 2759.707468679052
+- profit_factor: 2.0792457726900824
+- max_drawdown: -27288.657246917446
+- worst_trade: -27288.657246917446
+- loss_frequency: 0.12195121951219512
+- p05: -15007.496553583444
+- p10: -3274.659808193949
+- participation: 0.45555555555555555
+- no_trade_rate: 0.5444444444444444
+- bootstrap_mean_ci: [-546.5464329977984, 3680.9828127669066]
+- brier: 0.2536464377111111
+- auc: 0.5753968253968255
+## student_t
+- trades: 41
+- wins: 36
+- win_rate: 0.8780487804878049
+- total_pnl: 72335.38183192663
+- mean_pnl: 1764.277605656747
+- median_pnl: 2759.707468679052
+- profit_factor: 2.0792457726900824
+- max_drawdown: -27288.657246917446
+- worst_trade: -27288.657246917446
+- loss_frequency: 0.12195121951219512
+- p05: -15007.496553583444
+- p10: -3274.659808193949
+- participation: 0.45555555555555555
+- no_trade_rate: 0.5444444444444444
+- bootstrap_mean_ci: [-546.5464329977984, 3680.9828127669066]
+- brier: 0.25406160496950253
+- auc: 0.5674603174603174
+## hmm
+- trades: 86
+- wins: 73
+- win_rate: 0.8488372093023255
+- total_pnl: 92169.65654684344
+- mean_pnl: 1071.7401924051562
+- median_pnl: 2319.726940103802
+- profit_factor: 1.551017015633845
+- max_drawdown: -44841.95620300213
+- worst_trade: -40824.160812260954
+- loss_frequency: 0.1511627906976744
+- p05: -13975.39276365032
+- p10: -6506.982016227699
+- participation: 0.9555555555555556
+- no_trade_rate: 0.044444444444444446
+- bootstrap_mean_ci: [-686.1766755754422, 2556.3634553193147]
+- brier: 0.39563144106052217
+- auc: 0.48511904761904767
+## logistic
+- trades: 70
+- wins: 59
+- win_rate: 0.8428571428571429
+- total_pnl: 58998.92050661311
+- mean_pnl: 842.8417215230444
+- median_pnl: 2442.5506439345518
+- profit_factor: 1.4615105469917884
+- max_drawdown: -40428.48202284526
+- worst_trade: -27288.657246917446
+- loss_frequency: 0.15714285714285714
+- p05: -14397.753594008347
+- p10: -5258.220323600549
+- participation: 0.7777777777777778
+- no_trade_rate: 0.2222222222222222
+- bootstrap_mean_ci: [-816.7666891790082, 2296.816507580981]
+- brier: 0.29240523195644885
+- auc: 0.466765873015873
+## boosted
+- trades: 79
+- wins: 68
+- win_rate: 0.8607594936708861
+- total_pnl: 53995.442880264585
+- mean_pnl: 683.4866187375264
+- median_pnl: 2114.386881332552
+- profit_factor: 1.35141574194188
+- max_drawdown: -50466.846044326856
+- worst_trade: -40824.160812260954
+- loss_frequency: 0.13924050632911392
+- p05: -15625.636616655793
+- p10: -4152.019743239047
+- participation: 0.8777777777777778
+- no_trade_rate: 0.12222222222222222
+- bootstrap_mean_ci: [-1125.3279374804533, 2228.9737944462704]
+- brier: 0.27673446042302713
+- auc: 0.5466269841269841
+## hybrid
+- trades: 52
+- wins: 45
+- win_rate: 0.8653846153846154
+- total_pnl: 48769.5154075962
+- mean_pnl: 937.8752962999268
+- median_pnl: 2416.4720491195517
+- profit_factor: 1.4812189697406948
+- max_drawdown: -42000.225660842305
+- worst_trade: -40824.160812260954
+- loss_frequency: 0.1346153846153846
+- p05: -11155.079296237644
+- p10: -3614.1029658618463
+- participation: 0.5777777777777777
+- no_trade_rate: 0.4222222222222222
+- bootstrap_mean_ci: [-1473.2935072951545, 2832.3401894891917]
+- brier: 0.2605472483262636
+- auc: 0.513888888888889
+## always_bull
+- trades: 90
+- wins: 77
+- win_rate: 0.8555555555555555
+- total_pnl: 120076.05560122216
+- mean_pnl: 1334.178395569135
+- median_pnl: 2442.5506439345518
+- profit_factor: 1.799949290586407
+- max_drawdown: -40428.48202284526
+- worst_trade: -27288.657246917446
+- loss_frequency: 0.14444444444444443
+- p05: -13149.70973170382
+- p10: -4336.636850789249
+- participation: 1.0
+- no_trade_rate: 0.0
+- bootstrap_mean_ci: [-97.20553726406266, 2631.425103212944]
+## always_bear
+- trades: 90
+- wins: 78
+- win_rate: 0.8666666666666667
+- total_pnl: 79771.09828710713
+- mean_pnl: 886.3455365234125
+- median_pnl: 2060.795489858802
+- profit_factor: 1.508842317015835
+- max_drawdown: -40916.44495896464
+- worst_trade: -40824.160812260954
+- loss_frequency: 0.13333333333333333
+- p05: -14241.228058592751
+- p10: -5293.7821425373495
+- participation: 1.0
+- no_trade_rate: 0.0
+- bootstrap_mean_ci: [-684.8758011446545, 2240.661351205493]
