@@ -81,36 +81,37 @@ def acquire_nse_exchange_features():
         manifest_note = {"error": f"india_vix:{type(exc).__name__}:{exc}"}
         save_json(RAW / "india_vix_error.json", manifest_note)
 
-    # Daily NSE F&O option bhavcopy snapshots are sufficient for the
-    # preregistered signal-time option surface. Only signal dates are pulled,
-    # rather than downloading every trading day.
+    # Daily NSE F&O option snapshots from the official archive URL, accessed
+    # through the nse package session to handle exchange cookies/rate limits.
     try:
-        import subprocess
-        subprocess.run(["python", "-m", "pip", "install", "--quiet", "nse-archives"], check=True)
+        from nse import NSE
         sig = ROOT / "research_artifacts" / "phase2" / "signal_table.csv"
-        if sig.exists():
-            dates = pd.read_csv(sig, usecols=["signal_date"])["signal_date"].dropna().unique().tolist()
-        else:
-            dates = []
+        dates = pd.read_csv(sig, usecols=["signal_date"])["signal_date"].dropna().unique().tolist() if sig.exists() else []
         fresh = pd.date_range(dt.date(2026, 5, 20), END, freq="W-TUE").strftime("%Y-%m-%d").tolist()
         dates = sorted(set(dates + fresh))
         out = RAW / "nifty_option_eod"
         out.mkdir(parents=True, exist_ok=True)
-        for d in dates:
-            try:
+        with NSE(download_folder=out, server=True) as nse:
+            for d in dates:
                 target = out / f"optidx_{d}.csv"
                 if target.exists():
                     continue
-                subprocess.run(
-                    ["nse-data","derivatives","--type","optidx","--date",d],
-                    cwd=out, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True
-                )
-                candidates = sorted(out.glob("optidx*.csv"))
-                if not candidates:
-                    raise FileNotFoundError(f"optidx report not created for {d}")
-                candidates[-1].replace(target)
-            except Exception:
-                (out / f"optidx_{d}.missing").touch()
+                day = dt.date.fromisoformat(d)
+                urls = [
+                    f"https://nsearchives.nseindia.com/content/fo/optidx{day:%d%m%Y}.csv",
+                    f"https://archives.nseindia.com/content/fo/optidx{day:%d%m%Y}.csv",
+                ]
+                downloaded = None
+                for url in urls:
+                    try:
+                        downloaded = nse.download_document(url)
+                        if downloaded and Path(downloaded).exists():
+                            Path(downloaded).replace(target)
+                            break
+                    except Exception:
+                        continue
+                if not target.exists():
+                    (out / f"optidx_{d}.missing").touch()
     except Exception as exc:
         save_json(RAW / "nse_option_error.json", {"error": f"{type(exc).__name__}:{exc}"})
 
