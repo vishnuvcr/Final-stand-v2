@@ -110,7 +110,7 @@ def counterfactual_pnl(signals):
                     ep.append(e); xp.append(x)
                 legs=[(1,ep[0],xp[0]),(-1,ep[1],xp[1]),(-1,ep[2],xp[2])]
                 vals[typ]=costs(legs,exp,1)
-            rows.append({"expiry":exp.isoformat(),"bull_pnl":vals["PE"],"bear_pnl":vals["CE"]})
+            rows.append({"expiry":exp,"bull_pnl":vals["PE"],"bear_pnl":vals["CE"]})
         except Exception as e: missing.append({"expiry":exp.isoformat(),"error":repr(e)})
     out=pd.DataFrame(rows); out.to_csv(OUT/"counterfactual_pnl.csv",index=False)
     pd.DataFrame(missing).to_csv(OUT/"missing_counterfactual.csv",index=False)
@@ -190,7 +190,11 @@ def bootstrap_ci(x,n=10000,seed=20261001):
 def main():
     s=load_signals()
     cf=counterfactual_pnl(s)
+    if cf.empty:
+        raise RuntimeError("Counterfactual pricing produced zero usable expiries")
     df=s.merge(cf,on="expiry",how="inner")
+    if df.empty:
+        raise RuntimeError("Signal/counterfactual expiry merge produced zero rows; check expiry key types")
     f=make_features(df); df=df.join(f)
     df.to_csv(OUT/"model_features.csv",index=False)
     models=["gbm","student_t","hmm","logistic","boosted","hybrid"]
