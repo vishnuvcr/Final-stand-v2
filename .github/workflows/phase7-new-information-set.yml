@@ -43,4 +43,11 @@ jobs:
           git add research_artifacts/phase7
           git diff --cached --quiet && exit 0
           git commit -m "phase7: record new information-set data layer [skip ci]"
-          git push origin HEAD:\${{ github.ref_name }}
+          for attempt in 1 2 3; do
+            git fetch origin "${{ github.ref_name }}"
+            git rebase "origin/${{ github.ref_name }}" && git push origin HEAD:${{ github.ref_name }} && exit 0
+            git rebase --abort || true
+            sleep $((attempt * 2))
+          done
+          echo "Failed to push data-layer artifact commit after 3 rebase attempts."
+          exit 1
