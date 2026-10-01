@@ -39,3 +39,5 @@ Every material data, code, reproducibility, or methodological error encountered 
 | E0023 | Phase 7 | data coverage | resolved | NSE daily PR report acquisition yielded no parseable breadth rows, causing the feature builder to crash while sorting an empty DataFrame. | Changed the builder to preserve an explicit `unavailable_no_daily_pr_rows` breadth status and continue with FII/DII and corporate-action features; no imputation is performed. |
 
 | E0023 | Phase 7 | execution | resolved | NSE PR-report acquisition produced no parseable breadth rows, causing an empty dataframe to fail at `sort_values`. | Treat empty breadth acquisition as an explicit missing-data condition; the output remains timestamped and coverage reports zero breadth rows instead of inventing values. |
+
+| E0024 | Phase 7 | feature construction | resolved | The flow/breadth as-of join used pandas datetime keys with different internal resolutions (`us` and `s`). | Normalized all signal and source dates to `datetime64[ns]` before the strictly-prior-session as-of joins. |
