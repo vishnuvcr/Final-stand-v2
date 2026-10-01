@@ -1,0 +1,11 @@
+{
+  "signal_rows": 169,
+  "flow_rows": 62,
+  "breadth_rows": 0,
+  "breadth_source_status": "unavailable_no_daily_pr_rows",
+  "corporate_action_rows_available": 0,
+  "fresh_rows": 19,
+  "performance_evaluation_run": false,
+  "model_selection_run": false,
+  "status": "feature_inventory_only"
+}
