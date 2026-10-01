@@ -37,3 +37,5 @@ Every material data, code, reproducibility, or methodological error encountered 
 | E0022 | Phase 7 | feature construction | resolved | NSE India VIX data uses `EOD_TIMESTAMP` and `EOD_CLOSE_INDEX_VAL`, which were not included in the initial schema aliases. | Added the actual NSE column names to the parser; no downstream performance analysis ran before the fix. |
 
 | E0023 | Phase 7 | data coverage | resolved | NSE daily PR report acquisition yielded no parseable breadth rows, causing the feature builder to crash while sorting an empty DataFrame. | Changed the builder to preserve an explicit `unavailable_no_daily_pr_rows` breadth status and continue with FII/DII and corporate-action features; no imputation is performed. |
+
+| E0023 | Phase 7 | execution | resolved | NSE PR-report acquisition produced no parseable breadth rows, causing an empty dataframe to fail at `sort_values`. | Treat empty breadth acquisition as an explicit missing-data condition; the output remains timestamped and coverage reports zero breadth rows instead of inventing values. |
