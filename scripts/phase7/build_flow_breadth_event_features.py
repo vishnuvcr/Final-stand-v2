@@ -27,7 +27,21 @@ def parse_flows():
             })
         except Exception:
             continue
-    df = pd.DataFrame(rows).dropna(subset=["date"]).drop_duplicates("date").sort_values("date")
+    secondary = RAW / "fii_dii_secondary" / "data" / "history.json"
+    if secondary.exists():
+        try:
+            for x in json.loads(secondary.read_text(encoding="utf-8")):
+                rows.append({
+                    "date": pd.to_datetime(x.get("date"), format="%d-%b-%Y", errors="coerce").date(),
+                    "fii_net": float(x.get("fii_net", np.nan)),
+                    "dii_net": float(x.get("dii_net", np.nan)),
+                    "flow_source": "secondary_history",
+                })
+        except Exception:
+            pass
+    df = pd.DataFrame(rows).dropna(subset=["date"]).sort_values(["date","flow_source"])
+    # Prefer the primary archive when both sources cover a date; retain secondary rows for validation.
+    df = df.drop_duplicates("date", keep="first")
     for col in ["fii_net", "dii_net"]:
         df[col] = pd.to_numeric(df[col], errors="coerce")
         df[f"{col}_z20"] = (df[col] - df[col].rolling(20).mean()) / df[col].rolling(20).std()
