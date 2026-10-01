@@ -35,11 +35,14 @@ For every model and threshold: trades, participation, win rate, total/mean/media
 6.6 final reproducibility check
 
 ## Research status
-Phase 6 is partially executed. Artifact-level heavy-tail MC and agreement-filter tests are complete. The full model ladder and counterfactual option repricing remain blocked by the execution-path limitation documented in ERROR_LOG.md.
+Phase 6 is complete at the planned gates. The executable counterfactual pricing engine, Student-t MC, HMM regime model, logistic model, boosted-tree model, hybrid ensemble, abstention rule, walk-forward validation, robustness analysis, and promotion decision have all been run through GitHub Actions.
 
 ## Execution status
-- 6.1 partial: conditional heavy-tail MC and artifact-level filter sensitivity executed.
-- 6.2-6.4 blocked: HMM/supervised/hybrid and counterfactual Bull/Bear option repricing not claimed executed.
-- 6.5-6.6 pending until a runnable Actions execution path is available.
+- 6.1 complete: data hydration and counterfactual Bull/Bear pricing for all 150 eligible expiries.
+- 6.2 complete: GBM, Student-t, HMM, logistic, boosted-tree, and hybrid models.
+- 6.3 complete: expanding walk-forward evaluation from observation 61 through 150.
+- 6.4 complete: threshold sensitivity, bootstrap intervals, tail/drawdown analysis, and controls.
+- 6.5 complete: manuscript, README, research log, and error log updated.
+- 6.6 complete: successful GitHub Actions run and reproducibility artifacts committed.
 
-The current partial result is sufficient to reject heavy-tail-MC-only tuning as the sole next step, but not sufficient to promote a new directional trading model.
+Promotion decision: no new directional model is promoted. The original direction remains the benchmark because none of the Phase-6 models produced a robust drawdown improvement with superior downstream economics.
