@@ -82,7 +82,7 @@ def main():
     spots=spot_map()
     rows=[]; errors=[]
     for d in signal_dates():
-        srow=spots[spots["timestamp"]<=pd.Timestamp(f"{d} 15:30:00")].tail(1)
+        srow=spots[spots["timestamp"]<=pd.Timestamp(f"{d} 15:30:00", tz="Asia/Kolkata")].tail(1)
         if srow.empty:
             errors.append({"signal_date":str(d),"error":"missing_spot"}); continue
         S=float(srow.iloc[0]["spot"])
