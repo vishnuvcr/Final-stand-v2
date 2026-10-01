@@ -363,3 +363,16 @@ Phase 5 — Manuscript and research package: complete.
 9. GitHub dataset: technovusin/nifty50-historical-data.
 
 Key URLs are also preserved in DATA_MANIFEST.md, COST_MODEL.md, and LITERATURE_REVIEW.md.
+
+
+## 12. Phase 6 Direction-Engine Extension — Partial Execution
+
+A second-stage direction-engine study was initiated to test whether replacing the baseline Gaussian Monte Carlo innovation assumption with a heavier-tailed conditional distribution could improve directional classification and reduce drawdown through confidence filtering. An artifact-level Cauchy-innovation proxy was computed from the same leakage-safe drift/volatility inputs. Across the 150 observations, the baseline GBM direction hit rate was 50.67%, while the Cauchy conditional-MC proxy was 50.00%. This did not provide evidence that changing the innovation distribution alone improves weekly NIFTY direction prediction.
+
+For the available post-warm-up period (90 observations), an agreement filter that retained the original strategy direction only when the heavy-tail proxy agreed with the baseline and exceeded a fixed confidence threshold produced the following sensitivity: threshold 0.52 retained 69 trades with 86.96% wins and ₹139,382.65 P&L but did not reduce the -₹27,330.62 drawdown; threshold 0.55 retained 39 trades with 87.18% wins and ₹67,728.79 P&L and the same maximum drawdown; threshold 0.58 retained 22 trades with 86.36% wins and ₹28,614.90 P&L and the same maximum drawdown. A 0.60 threshold retained only three trades and produced negative P&L. These are filter diagnostics, not a promoted strategy variant.
+
+The planned HMM, supervised-model, hybrid ensemble, and counterfactual Bull/Bear option repricing were not claimed as completed because the available repository execution interface did not expose a reliable workflow-dispatch operation. The committed Phase-3 ledger contains P&L for the originally selected side but not the opposite-side structure, so assigning counterfactual P&L without rerunning the option-pricing engine would introduce unsupported assumptions. The Phase-6 artifacts therefore record an explicit partial result rather than a model-selection conclusion.
+
+### Revised inference
+
+The current evidence strengthens the original conclusion: the option payoff structure is doing most of the observed buffering, while the tested Monte Carlo direction layer has not demonstrated a stable directional edge. Future direction-engine work should add conditional information rather than merely increasing simulation count or changing the innovation distribution. The decisive test remains a strict walk-forward, costed, counterfactual backtest that prices both Bull and Bear structures for every decision and evaluates drawdown and tail loss directly.
