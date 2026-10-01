@@ -43,3 +43,5 @@ Every material data, code, reproducibility, or methodological error encountered 
 | E0024 | Phase 7 | feature construction | resolved | The flow/breadth as-of join used pandas datetime keys with different internal resolutions (`us` and `s`). | Normalized all signal and source dates to `datetime64[ns]` before the strictly-prior-session as-of joins. |
 
 | E0024 | Phase 7 | execution | resolved | Pandas `merge_asof` rejected flow and signal date keys because their datetime precisions differed (`datetime64[us]` vs `datetime64[s]`). | Normalize all signal/flow/breadth/corporate-action merge keys to `datetime64[ns]` before chronological alignment. |
+
+| E0025 | Phase 7 | data coverage | resolved | The first public FII/DII archive covered only 62 signal sessions, leaving most development dates without institutional-flow history. | Added a second historical `history.json` archive, using it only for dates absent from the primary archive and retaining source labels for auditability. |
