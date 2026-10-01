@@ -14,3 +14,20 @@ Primary references:
 
 ## Research implication
 The backtest will report the number of configurations tried, keep the 252-session / 50,000-simulation specification fixed as primary, and treat parameter sensitivities as secondary analyses rather than selecting the best-performing variant.
+
+
+## Phase 7 restart literature additions
+
+### Patra (2025) — Volatility Modelling for Indian Markets
+Patra evaluates NIFTY 50 daily options and reports predictive information in ATM and skew-based OTM option features for 30-day realized variance. This supports testing option-surface variables as a distinct information family rather than merely retuning the original Monte Carlo distribution.
+
+### Potharla & Sen (2026) — Conditional Dynamics of Volatility Smile Asymmetry
+The study of NIFTY-50 options separates smile intensity and tail asymmetry using curvature measures and reports regime-dependent maturity effects. This motivates preregistered skew, curvature and term-structure variables while avoiding post-hoc feature selection.
+
+### Sajjan (2026) — Variance Risk Premium in Nifty 50 Weekly Expiry Cycles
+The study examines 380 weekly expiry cycles through June 2026 and reports that India VIX has aggregate information about weekly move magnitude but regime dependence matters. This supports using India VIX as one component of a broader information set rather than as a standalone direction signal.
+
+### Sources
+- https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5748922
+- https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6857939
+- https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6918100
