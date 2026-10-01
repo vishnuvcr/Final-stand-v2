@@ -102,19 +102,19 @@ def main():
         signal_dates.update(pd.read_csv(sig, usecols=["signal_date"])["signal_date"].dropna().astype(str))
     signal_dates.update(pd.date_range(dt.date(2026,5,20), dt.date.today(), freq="W-TUE").strftime("%Y-%m-%d"))
     signals = pd.DataFrame({"signal_date": sorted(signal_dates)})
-    signals["signal_date"] = pd.to_datetime(signals["signal_date"]).astype("datetime64[ns]")
+    signals["signal_date"] = pd.to_datetime(signals["signal_date"]).astype("datetime64[ns]").astype("datetime64[ns]")
     if not flow.empty:
-        flow["date"] = pd.to_datetime(flow["date"]).astype("datetime64[ns]")
+        flow["date"] = pd.to_datetime(flow["date"]).astype("datetime64[ns]").astype("datetime64[ns]")
         signals = pd.merge_asof(signals.sort_values("signal_date"), flow.sort_values("date"),
                                 left_on="signal_date", right_on="date", direction="backward",
                                 allow_exact_matches=False)
     if not breadth.empty:
-        breadth["date"] = pd.to_datetime(breadth["date"]).astype("datetime64[ns]")
+        breadth["date"] = pd.to_datetime(breadth["date"]).astype("datetime64[ns]").astype("datetime64[ns]")
         signals = pd.merge_asof(signals.sort_values("signal_date"), breadth.sort_values("date"),
                                 left_on="signal_date", right_on="date", direction="backward",
                                 allow_exact_matches=False)
     if not ca.empty:
-        ca["date"] = pd.to_datetime(ca["date"]).astype("datetime64[ns]")
+        ca["date"] = pd.to_datetime(ca["date"]).astype("datetime64[ns]").astype("datetime64[ns]")
         signals = pd.merge_asof(signals.sort_values("signal_date"), ca.sort_values("date"),
                                 left_on="signal_date", right_on="date", direction="backward",
                                 allow_exact_matches=False)
