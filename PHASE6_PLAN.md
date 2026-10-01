@@ -36,3 +36,6 @@ For every model and threshold: trades, participation, win rate, total/mean/media
 
 ## Research status
 Phase 6 is the active phase. Results must be committed with the code, model specification, errors, and reproducibility metadata.
+
+## Execution status
+Workflow trigger commit issued; results will be committed by GitHub Actions after data/model execution.
