@@ -69,6 +69,22 @@ def main():
         })
     except Exception as exc:
         manifest["notes"].append(f"fii_dii_archive_error:{type(exc).__name__}:{exc}")
+    try:
+        secondary_repo = RAW / "fii_dii_secondary"
+        if not secondary_repo.exists():
+            subprocess.run([
+                "git","clone","--depth","1","--filter=blob:none","--sparse",
+                "https://github.com/MrChartist/fii-dii-data.git", str(secondary_repo)
+            ], check=True)
+            subprocess.run(["git","-C",str(secondary_repo),"sparse-checkout","set","data/history.json"], check=True)
+        manifest["sources"].append({
+            "name":"fii_dii_secondary_history",
+            "url":"https://github.com/MrChartist/fii-dii-data",
+            "path":str(secondary_repo/"data/history.json"),
+            "role":"historical_backfill_overlap_validation"
+        })
+    except Exception as exc:
+        manifest["notes"].append(f"fii_dii_secondary_error:{type(exc).__name__}:{exc}")
     save_json(RAW / "source_manifest.json", manifest)
 
 def acquire_nse_exchange_features():
