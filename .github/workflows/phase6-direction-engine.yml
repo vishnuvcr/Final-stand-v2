@@ -37,6 +37,7 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python scripts/run_phase6_direction_engine.py
       - name: Update phase status files
+        # Status is written only after the executable result exists.
         shell: bash
         run: |
           python - <<'PY'
