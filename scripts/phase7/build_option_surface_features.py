@@ -174,6 +174,8 @@ def main():
                     "iv_method": "Black76_forward_from_ATM_call_put_parity_no_discount",
                 }
                 rows.append(row)
+        except Exception as exc:
+            errors.append({"signal_date": path.stem.replace("optidx_", ""), "error": f"{type(exc).__name__}:{exc}"})
 
     out = pd.DataFrame(rows)
     if out.empty:
