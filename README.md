@@ -64,3 +64,7 @@ The final manuscript and complete research package are maintained on the phase-5
 
 ## Phase 6 status
 Phase 6 Direction Engine v2 has been initiated on [phase-6-direction-engine](https://github.com/vishnuvcr/Final-stand-v2/tree/phase-6-direction-engine). Artifact-level testing of a heavy-tail Monte Carlo variant did not improve directional hit rate, while the planned full HMM/ML/hybrid counterfactual option backtest remains blocked by the available execution interface. The branch records the partial results and limitations; no unsupported counterfactual P&L is reported.
+
+
+## Phase 6 final research status
+Phase 6 Direction Engine v2 is complete on the [`phase-6-direction-engine`](https://github.com/vishnuvcr/Final-stand-v2/tree/phase-6-direction-engine) branch. The full counterfactual Bull/Bear option-pricing engine and walk-forward GBM, Student-t, HMM, logistic, boosted-tree and hybrid models were executed successfully with the existing cost/slippage model. In the 90-observation out-of-sample window, the original-direction control produced ₹166,402.21 net P&L, 87.78% wins, PF 2.41 and max drawdown -₹27,288.66. No Phase-6 directional model produced a robust drawdown improvement, so no new model is promoted. See the branch's [robustness report](https://github.com/vishnuvcr/Final-stand-v2/blob/phase-6-direction-engine/research_artifacts/phase6/ROBUSTNESS_AND_PROMOTION.md) and [final Phase-6 results](https://github.com/vishnuvcr/Final-stand-v2/blob/phase-6-direction-engine/research_artifacts/phase6/summary.md).
