@@ -34,7 +34,7 @@ def main():
     }
     try:
         import yfinance as yf
-        tickers = {"sp500":"^GSPC","nasdaq":"^IXIC","vix":"^VIX","usd_inr":"INR=X","brent":"BZ=F","gold":"GC=F"}
+        tickers = {"nifty":"^NSEI","sp500":"^GSPC","nasdaq":"^IXIC","vix":"^VIX","usd_inr":"INR=X","brent":"BZ=F","gold":"GC=F"}
         for name, ticker in tickers.items():
             df = yf.download(ticker, start=str(START), end=str(END + dt.timedelta(days=1)),
                              auto_adjust=False, progress=False, group_by="column")
@@ -50,6 +50,25 @@ def main():
             manifest["sources"].append({"name":name,"ticker":ticker,"path":str(RAW / f"{name}.parquet")})
     except Exception as exc:
         manifest["notes"].append(f"global_download_error:{type(exc).__name__}:{exc}")
+    # Secondary, reproducible FII/DII cash-flow archive. NSE remains canonical;
+    # this public GitHub archive is used as a historical backfill/validation source.
+    try:
+        import subprocess
+        flow_repo = RAW / "fii_dii_source"
+        if not flow_repo.exists():
+            subprocess.run([
+                "git","clone","--depth","1","--filter=blob:none","--sparse",
+                "https://github.com/chirag127/fii-dii-activity-api.git", str(flow_repo)
+            ], check=True)
+            subprocess.run(["git","-C",str(flow_repo),"sparse-checkout","set","data"], check=True)
+        manifest["sources"].append({
+            "name":"fii_dii_public_archive",
+            "url":"https://github.com/chirag127/fii-dii-activity-api",
+            "path":str(flow_repo / "data"),
+            "role":"secondary_historical_backfill_validation"
+        })
+    except Exception as exc:
+        manifest["notes"].append(f"fii_dii_archive_error:{type(exc).__name__}:{exc}")
     save_json(RAW / "source_manifest.json", manifest)
 
 def acquire_nse_exchange_features():
