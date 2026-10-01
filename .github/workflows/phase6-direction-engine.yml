@@ -1,0 +1,66 @@
+name: Phase 6 - Direction engine v2
+
+on:
+  push:
+    branches: [phase-6-direction-engine]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: phase6-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  direction-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scipy scikit-learn matplotlib huggingface_hub hf_xet xgboost
+      - uses: actions/cache@v4
+        with:
+          path: data_cache/hf_nifty
+          key: hf-nifty-options-v1-${{ runner.os }}
+          restore-keys: |
+            hf-nifty-options-v1-
+      - name: Run Phase 6 direction engine
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python scripts/run_phase6_direction_engine.py
+      - name: Update phase status files
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          s=json.loads(Path("research_artifacts/phase6/summary.json").read_text())
+          p=Path("RESEARCH_LOG.md")
+          text=p.read_text()
+          text += "\n| 6.1-6.6 | Phase 6 | complete | 2026-10-01 | Executed counterfactual Bull/Bear pricing, Student-t MC, 2-state HMM regime probability, logistic regression, boosted-tree, hybrid ensemble, fixed abstention rule, and expanding walk-forward evaluation. Full results are in research_artifacts/phase6/. |\n"
+          p.write_text(text)
+          r=Path("README.md"); rt=r.read_text()
+          marker="\n## Phase 6 status\n"
+          block=marker+"Phase 6 Direction Engine v2 has been executed with counterfactual Bull/Bear option pricing and expanding walk-forward validation. See [PHASE6_PLAN.md](PHASE6_PLAN.md), [Phase 6 results](research_artifacts/phase6/summary.md), [predictions](research_artifacts/phase6/walk_forward_predictions.csv), and [counterfactual P&L](research_artifacts/phase6/counterfactual_pnl.csv).\n"
+          if "## Phase 6 status" in rt:
+              rt=rt.split("## Phase 6 status")[0]+block
+          else: rt+=block
+          r.write_text(rt)
+          PY
+      - name: Commit Phase 6 artifacts and status
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research_artifacts/phase6 RESEARCH_LOG.md README.md
+          git diff --cached --quiet && exit 0
+          git commit -m "phase6: record direction-engine results [skip ci]"
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
