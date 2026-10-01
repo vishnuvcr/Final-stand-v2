@@ -19,3 +19,7 @@
 ## Conversation record
 ### 2026-10-01 — User request
 Test a NIFTY weekly options strategy where a Monte Carlo forecast is generated after the previous expiry close, then a directional three-leg OTM4/OTM5/OTM6 structure is entered at 4 DTE 10:00 and exited at expiry.
+
+| 6.1 | Phase 6 | partial | 2026-10-01 | Added executable direction-engine workflow, conditional heavy-tail MC artifact analysis, and agreement-filter sensitivity. Full Actions execution was blocked by connector limitations; no counterfactual P&L was invented. See research_artifacts/phase6/partial_results.json. |
+| 6.2-6.4 | Phase 6 | blocked | 2026-10-01 | HMM/supervised/hybrid ladder and true Bull-vs-Bear counterfactual option repricing require a runnable Actions execution path; implementation is present but was not claimed as executed. |
+| 6.5-6.6 | Phase 6 | pending | 2026-10-01 | Manuscript/README should report Phase 6 as partial until the counterfactual runner executes successfully. |
