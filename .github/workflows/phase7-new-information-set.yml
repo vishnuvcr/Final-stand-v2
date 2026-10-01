@@ -37,6 +37,10 @@ jobs:
         run: python scripts/phase7/build_feature_dataset.py
       - name: Build option-surface features
         run: python scripts/phase7/build_option_surface_features.py
+      - name: Build India VIX features
+        run: python scripts/phase7/build_india_vix_features.py
+      - name: Build flow breadth event features
+        run: python scripts/phase7/build_flow_breadth_event_features.py
       - name: Commit data-layer artifacts
         shell: bash
         run: |
