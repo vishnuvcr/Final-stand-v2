@@ -35,6 +35,8 @@ jobs:
         run: python -c "from scripts.phase7.acquire_new_information_set import main, acquire_nse_exchange_features; main(); acquire_nse_exchange_features()"
       - name: Build non-evaluative feature inventory
         run: python scripts/phase7/build_feature_dataset.py
+      - name: Build option-surface features
+        run: python scripts/phase7/build_option_surface_features.py
       - name: Commit data-layer artifacts
         shell: bash
         run: |
