@@ -109,5 +109,38 @@ def acquire_nse_exchange_features():
     except Exception as exc:
         save_json(RAW / "nse_option_error.json", {"error": f"{type(exc).__name__}:{exc}"})
 
+    # Capital-market PR snapshots for full-market breadth and corporate-action flags.
+    try:
+        import subprocess
+        report_dir = RAW / "daily_reports"
+        report_dir.mkdir(parents=True, exist_ok=True)
+        sig = ROOT / "research_artifacts" / "phase2" / "signal_table.csv"
+        dates = pd.read_csv(sig, usecols=["signal_date"])["signal_date"].dropna().unique().tolist() if sig.exists() else []
+        fresh = pd.date_range(dt.date(2026, 5, 20), END, freq="W-TUE").strftime("%Y-%m-%d").tolist()
+        dates = sorted(set(dates + fresh))
+        for d in dates:
+            for typ, prefix in [("pr","pr"),("corp_actions","bc")]:
+                target = report_dir / f"{prefix}_{d}.csv"
+                if target.exists():
+                    continue
+                try:
+                    subprocess.run(
+                        ["nse-data","reports","--type",typ,"--date",d],
+                        cwd=report_dir, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True
+                    )
+                    candidates = sorted(report_dir.glob(f"{prefix}*"))
+                    if candidates:
+                        candidates[-1].replace(target)
+                    else:
+                        subprocess.run(
+                            ["nse-data","get","equities",typ,d],
+                            cwd=report_dir, stdout=target.open("wb"),
+                            stderr=subprocess.DEVNULL, check=True
+                        )
+                except Exception:
+                    (report_dir / f"{prefix}_{d}.missing").touch()
+    except Exception as exc:
+        save_json(RAW / "nse_equity_report_error.json", {"error": f"{type(exc).__name__}:{exc}"})
+
 if __name__ == "__main__":
     main()
