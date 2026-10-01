@@ -45,3 +45,5 @@ Every material data, code, reproducibility, or methodological error encountered 
 | E0024 | Phase 7 | execution | resolved | Pandas `merge_asof` rejected flow and signal date keys because their datetime precisions differed (`datetime64[us]` vs `datetime64[s]`). | Normalize all signal/flow/breadth/corporate-action merge keys to `datetime64[ns]` before chronological alignment. |
 
 | E0025 | Phase 7 | data coverage | resolved | The first public FII/DII archive covered only 62 signal sessions, leaving most development dates without institutional-flow history. | Added a second historical `history.json` archive, using it only for dates absent from the primary archive and retaining source labels for auditability. |
+
+| E0026 | Phase 7 | repository control | resolved | README referenced PHASE7_MODEL_SPEC.md while the file was absent on the phase branch, and data_layer_status.json still said data_layer_in_progress after the successful data-layer run. | Restored the frozen P7.3-v1 model specification and reconciled the status artifact. This was a documentation/control inconsistency only; no fresh-holdout result or model-selection decision was changed. |
